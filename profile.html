@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ملفي الشخصي - نصيبي 💍</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="profile-card">
+
+    <div class="profile-heart">
+        💗
+    </div>
+
+
+    <img
+        id="profileImage"
+        class="profile-photo"
+        alt="الصورة الشخصية">
+
+
+    <h1>
+        ملفي الشخصي 💍
+    </h1>
+
+
+    <h2 id="profileName">
+        اسم المستخدم
+    </h2>
+
+
+    <p id="profileAge">
+        🎂 العمر
+    </p>
+
+
+    <p id="profileGender">
+        🚻 الجنس
+    </p>
+
+
+    <p id="profileWilaya">
+        📍 الولاية
+    </p>
+
+
+    <p id="profileCity">
+        🏙️ المدينة
+    </p>
+
+
+    <p id="profileEmail">
+        📧 البريد الإلكتروني
+    </p>
+
+
+    <div class="bio">
+
+        <h3>
+            نبذة عني 💕
+        </h3>
+
+        <p id="profileBio">
+            لم تتم إضافة نبذة بعد
+        </p>
+
+    </div>
+
+
+    <button
+        class="profile-btn"
+        id="likeBtn">
+
+        ❤️ إعجاب
+
+    </button>
+
+
+    <button
+        class="profile-btn"
+        id="contactBtn">
+
+        💌 تواصل
+
+    </button>
+
+
+    <button
+        class="profile-btn"
+        id="logoutBtn">
+
+        🚪 تسجيل الخروج
+
+    </button>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        🏠 العودة للرئيسية
+
+    </a>
+
+</div>
+
+
+<script>
+
+/* =========================
+   حماية الصفحة
+========================= */
+
+const isLoggedIn =
+    localStorage.getItem("isLoggedIn");
+
+
+if (isLoggedIn !== "true") {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================
+   جلب المعلومات
+========================= */
+
+const savedName =
+    localStorage.getItem("userName");
+
+const savedAge =
+    localStorage.getItem("userAge");
+
+const savedGender =
+    localStorage.getItem("userGender");
+
+const savedWilaya =
+    localStorage.getItem("userWilaya");
+
+const savedCity =
+    localStorage.getItem("userCity");
+
+const savedEmail =
+    localStorage.getItem("userEmail");
+
+const savedBio =
+    localStorage.getItem("userBio");
+
+const savedPhoto =
+    localStorage.getItem("userPhoto");
+
+
+/* =========================
+   عرض المعلومات
+========================= */
+
+document.getElementById(
+    "profileName"
+).textContent =
+    savedName || "اسم المستخدم";
+
+
+document.getElementById(
+    "profileAge"
+).textContent =
+    "🎂 العمر: "
+    + (savedAge || "غير محدد");
+
+
+document.getElementById(
+    "profileGender"
+).textContent =
+    "🚻 الجنس: "
+    + (savedGender || "غير محدد");
+
+
+document.getElementById(
+    "profileWilaya"
+).textContent =
+    "📍 الولاية: "
+    + (savedWilaya || "غير محددة");
+
+
+document.getElementById(
+    "profileCity"
+).textContent =
+    "🏙️ المدينة: "
+    + (savedCity || "غير محددة");
+
+
+document.getElementById(
+    "profileEmail"
+).textContent =
+    "📧 البريد: "
+    + (savedEmail || "غير محدد");
+
+
+document.getElementById(
+    "profileBio"
+).textContent =
+    savedBio || "لم تتم إضافة نبذة بعد";
+
+
+/* =========================
+   الصورة
+========================= */
+
+const profileImage =
+    document.getElementById(
+        "profileImage"
+    );
+
+
+if (savedPhoto) {
+
+    profileImage.src =
+        savedPhoto;
+
+} else {
+
+    profileImage.src =
+        "https://via.placeholder.com/180";
+
+}
+
+
+/* =========================
+   زر الإعجاب
+========================= */
+
+const likeBtn =
+    document.getElementById(
+        "likeBtn"
+    );
+
+
+likeBtn.addEventListener(
+    "click",
+    function () {
+
+        likeBtn.textContent =
+            "💗 تم الإعجاب";
+
+    }
+);
+
+
+/* =========================
+   زر التواصل
+========================= */
+
+const contactBtn =
+    document.getElementById(
+        "contactBtn"
+    );
+
+
+contactBtn.addEventListener(
+    "click",
+    function () {
+
+        window.location.href =
+            "chat.html";
+
+    }
+);
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+
+logoutBtn.addEventListener(
+    "click",
+    function () {
+
+        localStorage.removeItem(
+            "isLoggedIn"
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

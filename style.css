@@ -1,0 +1,933 @@
+body {
+    background: #f5f7ff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1 {
+    color: #4f46e5;
+    font-size: 45px;
+}
+
+p {
+    color: #555;
+    font-size: 20px;
+}
+.card {
+    background: grey;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+    padding: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.hero {
+    background: white;
+    width: 85%;
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hero h1 {
+    color: #c026d3;
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    background: #c026d3;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    margin: 8px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.register {
+    background: white;
+    width: 85%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.register h2 {
+    color: #c026d3;
+}
+
+.register input {
+    display: block;
+    width: 90%;
+    padding: 13px;
+    margin: 12px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.register textarea {
+    display: block;
+    width: 90%;
+    margin: 12px auto;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.register label {
+    display: block;
+    width: 90%;
+    margin: 15px auto 5px;
+    text-align: right;
+    color: #444;
+}
+/* شكل الصفحة */
+body {
+    background: linear-gradient(135deg, #fff0f5, #ffe4ec, #fce7f3);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* القلوب في الخلفية */
+body::before {
+    content: "♥  ♥  ♥  ♥  ♥";
+    display: block;
+    color: #e11d48;
+    font-size: 35px;
+    letter-spacing: 25px;
+    padding-top: 30px;
+}
+
+/* البطاقة الرئيسية */
+.hero {
+    background: white;
+    width: 85%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 50px 20px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(190, 24, 93, 0.18);
+}
+
+/* اسم الموقع */
+.hero h1 {
+    color: #be185d;
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* الجملة */
+.hero p {
+    color: #6b214d;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+/* الأزرار */
+.hero button {
+    background: linear-gradient(135deg, #e11d48, #be185d);
+    color: white;
+    border: none;
+    padding: 15px 28px;
+    margin: 10px;
+    border-radius: 30px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(190, 24, 93, 0.25);
+}
+
+/* لما نحط الإصبع على الزر */
+.hero button:hover {
+    transform: scale(1.05);
+}
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+
+    background-image:
+        linear-gradient(rgba(255, 105, 180, 0.35), rgba(255, 192, 203, 0.45)),
+        url("f910c4427f53ad87135e7d5c8aa15c7b.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.register {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(5px);
+}
+/* 💕 زخارف رومانسية */
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* قلوب في الخلفية */
+body::before {
+    content: "💕  ♡  💗  ♥  💕  ♡  💖";
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 18px;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* زخرفة سفلية */
+body::after {
+    content: "♡  ✦  ♥  ✦  ♡  ✦  ♥";
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #e91e63;
+    font-size: 25px;
+    letter-spacing: 12px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* البطاقة */
+.hero,
+.register {
+    position: relative;
+    z-index: 1;
+    border: 3px solid #ffd1e1;
+    box-shadow:
+        0 15px 40px rgba(194, 24, 91, 0.18),
+        0 0 25px rgba(255, 105, 180, 0.15);
+}
+
+/* عنوان الموقع */
+h1, h2 {
+    text-shadow: 0 3px 10px rgba(233, 30, 99, 0.2);
+}
+
+/* قلوب حول العنوان */
+.hero h1::before {
+    content: "♡ ";
+    color: #ff4081;
+}
+
+.hero h1::after {
+    content: " ♡";
+    color: #ff4081;
+}
+
+/* الأزرار */
+.hero button,
+.hero a,
+.register button {
+    transition: 0.3s;
+}
+
+.hero button:hover,
+.hero a:hover,
+.register button:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+}
+
+/* لمعة على البطاقة */
+.hero::before,
+.register::before {
+    content: "✦";
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #ff80ab;
+    font-size: 25px;
+}
+
+.hero::after,
+.register::after {
+    content: "♡";
+    position: absolute;
+    bottom: 15px;
+    left: 25px;
+    color: #ff80ab;
+    font-size: 30px;
+}
+
+/* الحقول */
+.register input,
+.register select,
+.register textarea {
+    border: 2px solid #ffd1e1;
+    transition: 0.3s;
+}
+
+.register input:focus,
+.register select:focus,
+.register textarea:focus {
+    outline: none;
+    border-color: #ec407a;
+    box-shadow: 0 0 12px rgba(236, 64, 122, 0.2);
+}
+
+/* عنوان صغير رومانسي */
+.register h2::before {
+    content: "💗 ";
+}
+
+.register h2::after {
+    content: " 💗";
+}
+.profile-card {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 35px 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(194,24,91,0.25);
+    border: 3px solid #ffd1e1;
+}
+
+.profile-heart {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid #ff80ab;
+    box-shadow: 0 8px 25px rgba(233,30,99,0.25);
+}
+
+.profile-card h1 {
+    color: #e91e63;
+}
+
+.profile-card h2 {
+    color: #c026d3;
+}
+
+.bio {
+    margin: 25px 0;
+    padding: 20px;
+    background: #fff0f6;
+    border-radius: 20px;
+}
+
+.bio h3 {
+    color: #e91e63;
+}
+
+.profile-btn {
+    border: none;
+    background: linear-gradient(135deg,#ff2f75,#c026d3);
+    color: white;
+    padding: 13px 25px;
+    margin: 8px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.profile-btn:hover {
+    transform: scale(1.05);
+}
+
+.back {
+    display: block;
+    margin-top: 20px;
+    color: #c026d3;
+    text-decoration: none;
+}
+/* =========================
+   تصميم المحادثة
+========================= */
+
+.chat-card {
+    width: 92%;
+    max-width: 600px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.96);
+    border: 3px solid #ffd1e1;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(194, 24, 91, 0.20);
+}
+
+.chat-header {
+    padding: 20px;
+    background: #fff0f6;
+    text-align: center;
+}
+
+.chat-header h1 {
+    margin: 10px 0;
+    color: #e91e63;
+}
+
+.chat-header p {
+    margin: 5px;
+    font-size: 15px;
+    color: #777;
+}
+
+.back-btn {
+    display: inline-block;
+    color: #c026d3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/* منطقة الرسائل */
+
+.messages {
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+    background: #fff8fb;
+}
+
+
+/* شكل الرسالة */
+
+.message {
+    max-width: 75%;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 18px;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+
+/* رسالتي */
+
+.message.sent {
+    margin-right: auto;
+    background: #c026d3;
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+
+/* رسالة الطرف الآخر */
+
+.message.received {
+    margin-left: auto;
+    background: #ffe4ef;
+    color: #444;
+    border-bottom-left-radius: 5px;
+}
+
+
+/* خانة الكتابة */
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 15px;
+    background: white;
+}
+
+.chat-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px;
+    border: 2px solid #ffd1e1;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.chat-input input:focus {
+    border-color: #ec407a;
+}
+
+.chat-input button {
+    border: none;
+    background: #c026d3;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+/* أزرار الصوت والكاميرا */
+
+.media-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px;
+    background: white;
+}
+
+.media-buttons button {
+    border: none;
+    padding: 11px 15px;
+    border-radius: 20px;
+    background: #fff0f6;
+    color: #c026d3;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.media-buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(233, 30, 99, 0.2);
+}
+
+
+/* الهاتف */
+
+@media (max-width: 500px) {
+
+    .chat-card {
+        width: 96%;
+        margin: 15px auto;
+    }
+
+    .messages {
+        height: 350px;
+    }
+
+    .media-buttons button {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+}
+/* =========================
+   الرسائل الصوتية
+========================= */
+
+.audio-message {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audio-message span {
+    font-weight: bold;
+}
+
+.audio-message audio {
+    width: 220px;
+    max-width: 100%;
+}
+
+.media-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px;
+    background: white;
+}
+
+.media-buttons button {
+    border: none;
+    padding: 11px 15px;
+    border-radius: 20px;
+    background: #fff0f6;
+    color: #c026d3;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.media-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#recordStatus {
+    text-align: center;
+    color: #e91e63;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+/* =========================
+   الكاميرا والفيديو
+========================= */
+
+.video-box {
+    display: none;
+
+    margin: 20px;
+
+    padding: 20px;
+
+    background: #fff0f6;
+
+    border: 2px solid #ffd1e1;
+
+    border-radius: 20px;
+
+    text-align: center;
+}
+
+
+#localVideo {
+    width: 100%;
+
+    max-width: 500px;
+
+    height: 300px;
+
+    object-fit: cover;
+
+    background: #222;
+
+    border-radius: 20px;
+
+    border: 4px solid #ff80ab;
+
+    box-shadow:
+        0 10px 25px
+        rgba(233, 30, 99, 0.20);
+}
+
+
+.video-controls {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+.video-controls button {
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 20px;
+
+    background: #c026d3;
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.video-controls button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(194, 24, 91, 0.25);
+}
+
+
+#cameraStatus {
+    color: #e91e63;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+}
+
+
+.audio-message {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.audio-message audio {
+    max-width: 100%;
+}
+
+
+@media (max-width: 500px) {
+
+    #localVideo {
+        height: 250px;
+    }
+
+    .video-controls button {
+        padding: 10px;
+
+        font-size: 13px;
+    }
+
+}
+/* =========================
+   صفحة البحث
+========================= */
+
+.search-page {
+    width: 92%;
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+
+.search-page h1 {
+    color: #e91e63;
+}
+
+
+.search-box {
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    border: 3px solid #ffd1e1;
+
+    box-shadow:
+        0 10px 30px
+        rgba(194, 24, 91, 0.15);
+
+    margin-bottom: 30px;
+}
+
+
+.search-box label {
+    display: block;
+
+    width: 90%;
+
+    margin: 12px auto 5px;
+
+    text-align: right;
+
+    color: #555;
+}
+
+
+.search-box input,
+.search-box select {
+    width: 90%;
+
+    padding: 13px;
+
+    margin: 5px auto;
+
+    border: 2px solid #ffd1e1;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+
+    background: white;
+}
+
+
+.search-box input:focus,
+.search-box select:focus {
+    outline: none;
+
+    border-color: #ec407a;
+
+    box-shadow:
+        0 0 10px
+        rgba(236, 64, 122, 0.15);
+}
+
+
+#searchBtn {
+    margin-top: 20px;
+
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #ff2f75,
+        #c026d3
+    );
+
+    color: white;
+
+    padding: 14px 35px;
+
+    border-radius: 25px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+
+/* النتائج */
+
+.results {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+
+.user-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    border: 3px solid #ffd1e1;
+
+    box-shadow:
+        0 10px 30px
+        rgba(194, 24, 91, 0.15);
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.user-avatar {
+    width: 90px;
+
+    height: 90px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff0f6;
+
+    font-size: 45px;
+
+    border: 4px solid #ff80ab;
+}
+
+
+.user-card h2 {
+    color: #c026d3;
+}
+
+
+.user-card p {
+    font-size: 16px;
+
+    margin: 8px;
+}
+
+
+.user-bio {
+    background: #fff0f6;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    margin: 15px 0;
+
+    color: #555;
+}
+
+
+.like-user,
+.contact-user {
+    border: none;
+
+    padding: 11px 17px;
+
+    margin: 5px;
+
+    border-radius: 20px;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.like-user {
+    background: #e91e63;
+}
+
+
+.contact-user {
+    background: #c026d3;
+}
+
+
+.no-results {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    color: #e91e63;
+
+    border: 2px solid #ffd1e1;
+}
+
+
+@media (max-width: 600px) {
+
+    .search-page {
+        width: 96%;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+}

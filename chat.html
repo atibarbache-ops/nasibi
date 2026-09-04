@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المحادثة 💌 - نصيبي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="chat-card">
+
+        <div class="chat-header">
+            <a href="profile.html" class="back-btn">← رجوع</a>
+
+            <h1>💌 المحادثة</h1>
+
+            <p>نتواصل باحترام 💗</p>
+        </div>
+
+
+        <!-- الرسائل -->
+
+        <div class="messages" id="messages">
+
+            <p class="message received">
+                مرحبًا 💗
+            </p>
+
+        </div>
+
+
+        <!-- كتابة الرسالة -->
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="اكتب رسالتك..."
+                autocomplete="off">
+
+            <button id="sendBtn">
+                إرسال 💗
+            </button>
+
+        </div>
+
+
+        <!-- أزرار الوسائط -->
+
+        <div class="media-buttons">
+
+            <button id="recordBtn">
+                🎤 تسجيل صوت
+            </button>
+
+            <button id="stopBtn" disabled>
+                ⏹️ إيقاف
+            </button>
+
+            <button id="callBtn">
+                📞 مكالمة
+            </button>
+
+            <button id="videoBtn">
+                📹 كاميرا
+            </button>
+
+        </div>
+
+
+        <p id="recordStatus"></p>
+
+
+        <!-- نافذة الكاميرا -->
+
+        <div id="videoBox" class="video-box">
+
+            <video
+                id="localVideo"
+                autoplay
+                playsinline>
+            </video>
+
+            <div class="video-controls">
+
+                <button id="startCameraBtn">
+                    📹 تشغيل الكاميرا
+                </button>
+
+                <button id="stopCameraBtn">
+                    ⛔ إيقاف الكاميرا
+                </button>
+
+            </div>
+
+            <p id="cameraStatus"></p>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+
+/* =========================
+   الرسائل النصية
+========================= */
+
+const messageInput =
+    document.getElementById("messageInput");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const messages =
+    document.getElementById("messages");
+
+
+function sendMessage() {
+
+    const text =
+        messageInput.value.trim();
+
+    if (text === "") {
+        return;
+    }
+
+
+    const newMessage =
+        document.createElement("p");
+
+    newMessage.className =
+        "message sent";
+
+    newMessage.textContent =
+        text;
+
+
+    messages.appendChild(newMessage);
+
+
+    messageInput.value = "";
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+}
+
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+messageInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   تسجيل الصوت
+========================= */
+
+const recordBtn =
+    document.getElementById("recordBtn");
+
+const stopBtn =
+    document.getElementById("stopBtn");
+
+const recordStatus =
+    document.getElementById("recordStatus");
+
+
+let mediaRecorder;
+
+let audioChunks = [];
+
+
+recordBtn.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            const stream =
+                await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+
+
+            audioChunks = [];
+
+
+            mediaRecorder =
+                new MediaRecorder(stream);
+
+
+            mediaRecorder.addEventListener(
+                "dataavailable",
+                function(event) {
+
+                    if (event.data.size > 0) {
+
+                        audioChunks.push(
+                            event.data
+                        );
+
+                    }
+
+                }
+            );
+
+
+            mediaRecorder.addEventListener(
+                "stop",
+                function() {
+
+                    const audioBlob =
+                        new Blob(
+                            audioChunks,
+                            {
+                                type: "audio/webm"
+                            }
+                        );
+
+
+                    const audioURL =
+                        URL.createObjectURL(
+                            audioBlob
+                        );
+
+
+                    const audio =
+                        document.createElement(
+                            "audio"
+                        );
+
+                    audio.controls = true;
+
+                    audio.src =
+                        audioURL;
+
+
+                    const audioMessage =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    audioMessage.className =
+                        "message sent audio-message";
+
+
+                    const title =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    title.textContent =
+                        "🎤 رسالة صوتية";
+
+
+                    audioMessage.appendChild(
+                        title
+                    );
+
+
+                    audioMessage.appendChild(
+                        audio
+                    );
+
+
+                    messages.appendChild(
+                        audioMessage
+                    );
+
+
+                    messages.scrollTop =
+                        messages.scrollHeight;
+
+
+                    recordStatus.textContent =
+                        "✅ تم تسجيل الرسالة الصوتية";
+
+
+                    stream
+                        .getTracks()
+                        .forEach(
+                            function(track) {
+
+                                track.stop();
+
+                            }
+                        );
+
+                }
+            );
+
+
+            mediaRecorder.start();
+
+
+            recordBtn.disabled =
+                true;
+
+            stopBtn.disabled =
+                false;
+
+
+            recordStatus.textContent =
+                "🔴 يتم التسجيل الآن...";
+
+        }
+
+        catch (error) {
+
+            recordStatus.textContent =
+                "❌ لم نتمكن من الوصول إلى الميكروفون";
+
+            console.log(error);
+
+        }
+
+    }
+);
+
+
+
+stopBtn.addEventListener(
+    "click",
+    function() {
+
+        if (
+            mediaRecorder &&
+            mediaRecorder.state === "recording"
+        ) {
+
+            mediaRecorder.stop();
+
+            record
