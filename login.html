@@ -10,7 +10,6 @@
 <body>
 
 <div class="register">
-
     <h2>تسجيل الدخول 💗</h2>
 
     <p>مرحبًا بعودتك إلى نصيبي 💍</p>
@@ -36,51 +35,96 @@
     <a href="register.html" class="back">
         إنشاء حساب جديد
     </a>
-
 </div>
 
-<script>
+<script type="module">
+
+import { auth } from "./firebase-config.js";
+
+import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 const loginEmail = document.getElementById("loginEmail");
 const loginPassword = document.getElementById("loginPassword");
 const loginBtn = document.getElementById("loginBtn");
 const loginMessage = document.getElementById("loginMessage");
 
-loginBtn.addEventListener("click", function() {
+
+loginBtn.addEventListener("click", async function () {
 
     const email = loginEmail.value.trim();
     const password = loginPassword.value;
 
+
     if (email === "" || password === "") {
 
-        loginMessage.textContent = "⚠️ املئي جميع الخانات";
+        loginMessage.textContent =
+            "⚠️ املئي البريد الإلكتروني وكلمة السر";
+
         loginMessage.style.color = "red";
 
         return;
     }
 
-    const savedEmail = localStorage.getItem("userEmail");
-    const savedPassword = localStorage.getItem("userPassword");
 
-    if (email === savedEmail && password === savedPassword) {
+    loginBtn.disabled = true;
+    loginBtn.textContent = "⏳ جاري الدخول...";
 
-        localStorage.setItem("isLoggedIn", "true");
 
-        loginMessage.textContent = "✅ تم تسجيل الدخول";
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        loginMessage.textContent =
+            "✅ تم تسجيل الدخول بنجاح";
+
         loginMessage.style.color = "green";
 
-        setTimeout(function() {
+
+        setTimeout(function () {
 
             window.location.href = "profile.html";
 
         }, 700);
 
-    } else {
 
-        loginMessage.textContent =
-            "❌ البريد الإلكتروني أو كلمة السر غير صحيحة";
+    } catch (error) {
+
+        console.log(error);
+
+
+        if (
+            error.code === "auth/invalid-credential" ||
+            error.code === "auth/wrong-password" ||
+            error.code === "auth/user-not-found"
+        ) {
+
+            loginMessage.textContent =
+                "❌ البريد الإلكتروني أو كلمة السر غير صحيحة";
+
+        } else if (error.code === "auth/invalid-email") {
+
+            loginMessage.textContent =
+                "❌ البريد الإلكتروني غير صحيح";
+
+        } else {
+
+            loginMessage.textContent =
+                "❌ حدث خطأ، حاولي مرة أخرى";
+
+        }
 
         loginMessage.style.color = "red";
+
+        loginBtn.disabled = false;
+        loginBtn.textContent = "دخول 💗";
     }
 
 });
