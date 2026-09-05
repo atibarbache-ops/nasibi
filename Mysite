@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول - نصيبي 💍</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="register">
+
+        <h2>تسجيل الدخول 💗</h2>
+
+        <p>مرحبًا بعودتك إلى نصيبي 💍</p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="البريد الإلكتروني">
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="كلمة السر">
+
+        <button
+            type="button"
+            id="loginBtn">
+            دخول 💗
+        </button>
+
+        <p id="loginMessage"></p>
+
+        <a href="register.html" class="back">
+            إنشاء حساب جديد
+        </a>
+
+    </div>
+
+
+<script>
+
+const loginEmail =
+    document.getElementById("loginEmail");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+
+loginBtn.addEventListener(
+    "click",
+    function() {
+
+        const email =
+            loginEmail.value.trim();
+
+        const password =
+            loginPassword.value;
+
+
+        if (email === "" || password === "") {
+
+            loginMessage.textContent =
+                "⚠️ املئي جميع الخانات";
+
+            loginMessage.style.color =
+                "red";
+
+            return;
+        }
+
+
+        const savedEmail =
+            localStorage.getItem("userEmail");
+
+        const savedPassword =
+            localStorage.getItem("userPassword");
+
+
+        if (
+            email === savedEmail &&
+            password === savedPassword
+        ) {
+
+            localStorage.setItem(
+                "isLoggedIn",
+                "true"
+            );
+
+
+            loginMessage.textContent =
+                "✅ تم تسجيل الدخول";
+
+            loginMessage.style.color =
+                "green";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "profile.html";
+
+                },
+                700
+            );
+
+        }
+
+        else {
+
+            loginMessage.textContent =
+                "❌ البريد الإلكتروني أو كلمة السر غير صحيحة";
+
+            loginMessage.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
