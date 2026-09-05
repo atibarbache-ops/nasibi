@@ -1,182 +1,789 @@
-const today = new Date();
-    const birth = new Date(this.value);
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-    let years =
-        today.getFullYear() -
-        birth.getFullYear();
+<head>
 
-    const month =
-        today.getMonth() -
-        birth.getMonth();
+  <meta charset="UTF-8">
 
-    if (
-        month < 0 ||
-        (month === 0 &&
-        today.getDate() < birth.getDate())
-    ) {
-        years--;
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>إنشاء حساب - Nasibi</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
     }
 
-    userAge = years;
-
-    if (years >= 18) {
-
-        age.textContent =
-            "✅ عمرك: " + years + " سنة";
-
-        age.style.color = "green";
-
-        createAccount.disabled = false;
-
-    } else {
-
-        age.textContent =
-            "❌ التسجيل مسموح لمن عمره 18 سنة أو أكثر";
-
-        age.style.color = "red";
-
-        createAccount.disabled = true;
-    }
-});
-
-createAccount.addEventListener("click", async function () {
-
-    if (userAge < 18) {
-        alert("❌ يجب أن يكون عمرك 18 سنة أو أكثر");
-        return;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
-    if (
-        nameInput.value.trim() === "" ||
-        gender.value === "" ||
-        wilaya.value === "" ||
-        email.value.trim() === "" ||
-        password.value === ""
-    ) {
-
-        message.textContent =
-            "⚠️ املئي جميع المعلومات المطلوبة";
-
-        message.style.color = "red";
-
-        return;
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.10);
     }
 
-    if (password.value.length < 6) {
-
-        message.textContent =
-            "❌ كلمة السر يجب أن تحتوي على 6 أحرف على الأقل";
-
-        message.style.color = "red";
-
-        return;
+    h1 {
+      text-align: center;
+      color: #ff4f87;
+      margin-bottom: 10px;
     }
 
-    createAccount.disabled = true;
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
 
-    try {
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #444;
+    }
 
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email.value.trim(),
-                password.value
-            );
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      font-family: Arial, sans-serif;
+    }
 
-        const user = userCredential.user;
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #ff4f87;
+    }
 
-        /*
-        نخزنو المعلومات العامة مؤقتًا
-        بدون تخزين كلمة السر
-        */
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
 
-        localStorage.setItem(
-            "userUid",
-            user.uid
-        );
+    #age {
+      margin-top: 8px;
+      font-size: 14px;
+    }
 
-        localStorage.setItem(
-            "userName",
-            nameInput.value.trim()
-        );
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4f87;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        localStorage.setItem(
-            "userAge",
-            userAge
-        );
+    button:hover {
+      background: #e83d73;
+    }
 
-        localStorage.setItem(
-            "userGender",
-            gender.value
-        );
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
 
-        localStorage.setItem(
-            "userWilaya",
-            wilaya.value
-        );
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-        localStorage.setItem(
-            "userCity",
-            city.value.trim()
-        );
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+    }
 
-        localStorage.setItem(
-            "userEmail",
-            email.value.trim()
-        );
+    .login-link a {
+      color: #ff4f87;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        localStorage.setItem(
-            "userBio",
-            bio.value.trim()
-        );
+  </style>
 
-        localStorage.setItem(
-            "isLoggedIn",
-            "true"
-        );
+</head>
 
-        message.textContent =
-            "✅ تم إنشاء الحساب بنجاح!";
 
-        message.style.color = "green";
+<body>
 
-        setTimeout(function () {
-            window.location.href = "profile.html";
-        }, 1000);
+  <div class="container">
 
-    } catch (error) {
+    <h1>💗 Nasibi</h1>
 
-        console.log(error);
+    <div class="subtitle">
+      إنشاء حساب جديد
+    </div>
 
-        if (error.code === "auth/email-already-in-use") {
 
-            message.textContent =
-                "❌ هذا البريد الإلكتروني مستعمل من قبل";
+    <!-- الاسم -->
 
-        } else if (error.code === "auth/invalid-email") {
+    <label for="name">
+      الاسم الكامل
+    </label>
 
-            message.textContent =
-                "❌ البريد الإلكتروني غير صحيح";
+    <input
+      type="text"
+      id="name"
+      placeholder="اكتبي اسمك"
+    >
 
-        } else if (error.code === "auth/weak-password") {
 
-            message.textContent =
-                "❌ كلمة السر ضعيفة";
+    <!-- تاريخ الميلاد -->
+
+    <label for="birthDate">
+      تاريخ الميلاد
+    </label>
+
+    <input
+      type="date"
+      id="birthDate"
+    >
+
+    <div id="age"></div>
+
+
+    <!-- الجنس -->
+
+    <label for="gender">
+      الجنس
+    </label>
+
+    <select id="gender">
+
+      <option value="">
+        اختاري الجنس
+      </option>
+
+      <option value="أنثى">
+        أنثى
+      </option>
+
+      <option value="ذكر">
+        ذكر
+      </option>
+
+    </select>
+
+
+    <!-- الولاية -->
+
+    <label for="wilaya">
+      الولاية
+    </label>
+
+    <select id="wilaya">
+
+      <option value="">
+        اختاري الولاية
+      </option>
+
+      <option value="أدرار">أدرار</option>
+      <option value="الشلف">الشلف</option>
+      <option value="الأغواط">الأغواط</option>
+      <option value="أم البواقي">أم البواقي</option>
+      <option value="باتنة">باتنة</option>
+      <option value="بجاية">بجاية</option>
+      <option value="بسكرة">بسكرة</option>
+      <option value="بشار">بشار</option>
+      <option value="البليدة">البليدة</option>
+      <option value="البويرة">البويرة</option>
+      <option value="تمنراست">تمنراست</option>
+      <option value="تبسة">تبسة</option>
+      <option value="تلمسان">تلمسان</option>
+      <option value="تيارت">تيارت</option>
+      <option value="تيزي وزو">تيزي وزو</option>
+      <option value="الجزائر">الجزائر</option>
+      <option value="الجلفة">الجلفة</option>
+      <option value="جيجل">جيجل</option>
+      <option value="سطيف">سطيف</option>
+      <option value="سعيدة">سعيدة</option>
+      <option value="سكيكدة">سكيكدة</option>
+      <option value="سيدي بلعباس">سيدي بلعباس</option>
+      <option value="عنابة">عنابة</option>
+      <option value="قالمة">قالمة</option>
+      <option value="قسنطينة">قسنطينة</option>
+      <option value="المدية">المدية</option>
+      <option value="مستغانم">مستغانم</option>
+      <option value="المسيلة">المسيلة</option>
+      <option value="معسكر">معسكر</option>
+      <option value="ورقلة">ورقلة</option>
+      <option value="وهران">وهران</option>
+      <option value="البيض">البيض</option>
+      <option value="إليزي">إليزي</option>
+      <option value="برج بوعريريج">برج بوعريريج</option>
+      <option value="بومرداس">بومرداس</option>
+      <option value="الطارف">الطارف</option>
+      <option value="تندوف">تندوف</option>
+      <option value="تيسمسيلت">تيسمسيلت</option>
+      <option value="الوادي">الوادي</option>
+      <option value="خنشلة">خنشلة</option>
+      <option value="سوق أهراس">سوق أهراس</option>
+      <option value="تيبازة">تيبازة</option>
+      <option value="ميلة">ميلة</option>
+      <option value="عين الدفلى">عين الدفلى</option>
+      <option value="النعامة">النعامة</option>
+      <option value="عين تموشنت">عين تموشنت</option>
+      <option value="غرداية">غرداية</option>
+      <option value="غليزان">غليزان</option>
+
+    </select>
+
+
+    <!-- المدينة -->
+
+    <label for="city">
+      المدينة
+    </label>
+
+    <input
+      type="text"
+      id="city"
+      placeholder="اكتبي مدينتك"
+    >
+
+
+    <!-- البريد -->
+
+    <label for="email">
+      البريد الإلكتروني
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="example@gmail.com"
+    >
+
+
+    <!-- كلمة السر -->
+
+    <label for="password">
+      كلمة السر
+    </label>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="6 أحرف على الأقل"
+    >
+
+
+    <!-- نبذة -->
+
+    <label for="bio">
+      نبذة عنك
+    </label>
+
+    <textarea
+      id="bio"
+      placeholder="اكتبي نبذة قصيرة عنك..."
+    ></textarea>
+
+
+    <!-- الزر -->
+
+    <button
+      id="createAccount"
+      disabled>
+
+      إنشاء الحساب 💗
+
+    </button>
+
+
+    <div id="message"></div>
+
+
+    <div class="login-link">
+
+      عندك حساب من قبل؟
+
+      <a href="login.html">
+        تسجيل الدخول
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    /* =========================
+       Firebase
+    ========================= */
+
+    import {
+      auth,
+      db
+    } from "./firebase-config.js";
+
+
+    import {
+      createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      doc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================
+       العناصر
+    ========================= */
+
+    const nameInput =
+      document.getElementById("name");
+
+    const birthDate =
+      document.getElementById("birthDate");
+
+    const age =
+      document.getElementById("age");
+
+    const gender =
+      document.getElementById("gender");
+
+    const wilaya =
+      document.getElementById("wilaya");
+
+    const city =
+      document.getElementById("city");
+
+    const email =
+      document.getElementById("email");
+
+    const password =
+      document.getElementById("password");
+
+    const bio =
+      document.getElementById("bio");
+
+    const createAccount =
+      document.getElementById("createAccount");
+
+    const message =
+      document.getElementById("message");
+
+
+    let userAge = 0;
+
+
+    /* =========================
+       حساب العمر
+    ========================= */
+
+    birthDate.addEventListener(
+      "change",
+      function () {
+
+        if (!this.value) {
+
+          userAge = 0;
+
+          age.textContent = "";
+
+          createAccount.disabled =
+            true;
+
+          return;
+
+        }
+
+
+        const today =
+          new Date();
+
+
+        const birth =
+          new Date(this.value);
+          let years =
+          today.getFullYear() -
+          birth.getFullYear();
+
+
+        const month =
+          today.getMonth() -
+          birth.getMonth();
+
+
+        if (
+          month < 0 ||
+          (
+            month === 0 &&
+            today.getDate() <
+            birth.getDate()
+          )
+        ) {
+
+          years--;
+
+        }
+
+
+        userAge = years;
+
+
+        if (years >= 18) {
+
+          age.textContent =
+            "✅ عمرك: " +
+            years +
+            " سنة";
+
+          age.style.color =
+            "green";
+
+          createAccount.disabled =
+            false;
 
         } else {
 
-            message.textContent =
-                "❌ حدث خطأ أثناء إنشاء الحساب";
+          age.textContent =
+            "❌ التسجيل مسموح لمن عمره 18 سنة أو أكثر";
+
+          age.style.color =
+            "red";
+
+          createAccount.disabled =
+            true;
+
         }
 
-        message.style.color = "red";
+      }
+    );
 
-        createAccount.disabled = false;
-    }
 
-});
+    /* =========================
+       إنشاء الحساب
+    ========================= */
 
-</script>
+    createAccount.addEventListener(
+      "click",
+      async function () {
+
+
+        /* التحقق من العمر */
+
+        if (userAge < 18) {
+
+          message.textContent =
+            "❌ يجب أن يكون عمرك 18 سنة أو أكثر";
+
+          message.style.color =
+            "red";
+
+          return;
+
+        }
+
+
+        /* التحقق من المعلومات */
+
+        if (
+          nameInput.value.trim() === "" ||
+          gender.value === "" ||
+          wilaya.value === "" ||
+          city.value.trim() === "" ||
+          email.value.trim() === "" ||
+          password.value === ""
+        ) {
+
+          message.textContent =
+            "⚠️ املئي جميع المعلومات المطلوبة";
+
+          message.style.color =
+            "red";
+
+          return;
+
+        }
+
+
+        /* كلمة السر */
+
+        if (password.value.length < 6) {
+
+          message.textContent =
+            "❌ كلمة السر يجب أن تحتوي على 6 أحرف على الأقل";
+
+          message.style.color =
+            "red";
+
+          return;
+
+        }
+
+
+        createAccount.disabled =
+          true;
+
+        createAccount.textContent =
+          "⏳ جاري إنشاء الحساب...";
+
+
+        try {
+
+
+          /* =========================
+             إنشاء حساب Firebase
+          ========================= */
+
+          const userCredential =
+            await createUserWithEmailAndPassword(
+              auth,
+              email.value.trim(),
+              password.value
+            );
+
+
+          const user =
+            userCredential.user;
+
+
+          /* =========================
+             حفظ معلومات المستخدم
+             في Firestore
+          ========================= */
+
+          await setDoc(
+
+            doc(
+              db,
+              "users",
+              user.uid
+            ),
+
+            {
+
+              uid:
+                user.uid,
+
+              name:
+                nameInput.value.trim(),
+
+              age:
+                userAge,
+
+              gender:
+                gender.value,
+
+              wilaya:
+                wilaya.value,
+
+              city:
+                city.value.trim(),
+
+              email:
+                email.value.trim(),
+
+              bio:
+                bio.value.trim(),
+
+              createdAt:
+                serverTimestamp()
+
+            }
+
+          );
+
+
+          /* =========================
+             LocalStorage
+          ========================= */
+
+          localStorage.setItem(
+            "userUid",
+            user.uid
+          );
+
+
+          localStorage.setItem(
+            "userName",
+            nameInput.value.trim()
+          );
+
+
+          localStorage.setItem(
+            "userAge",
+            userAge
+          );
+
+
+          localStorage.setItem(
+            "userGender",
+            gender.value
+          );
+
+
+          localStorage.setItem(
+            "userWilaya",
+            wilaya.value
+          );
+
+
+          localStorage.setItem(
+            "userCity",
+            city.value.trim()
+          );
+
+
+          localStorage.setItem(
+            "userEmail",
+            email.value.trim()
+          );
+
+
+          localStorage.setItem(
+            "userBio",
+            bio.value.trim()
+          );
+            localStorage.setItem(
+            "isLoggedIn",
+            "true"
+          );
+
+
+          /* =========================
+             نجاح
+          ========================= */
+
+          message.textContent =
+            "✅ تم إنشاء الحساب بنجاح!";
+
+          message.style.color =
+            "green";
+
+
+          createAccount.textContent =
+            "✅ تم إنشاء الحساب";
+
+
+          setTimeout(
+            function () {
+
+              window.location.href =
+                "profile.html";
+
+            },
+            1000
+          );
+
+
+        } catch (error) {
+
+          console.error(error);
+
+
+          /* البريد مستعمل */
+
+          if (
+            error.code ===
+            "auth/email-already-in-use"
+          ) {
+
+            message.textContent =
+              "❌ هذا البريد الإلكتروني مستعمل من قبل";
+
+          }
+
+
+          /* البريد غير صحيح */
+
+          else if (
+            error.code ===
+            "auth/invalid-email"
+          ) {
+
+            message.textContent =
+              "❌ البريد الإلكتروني غير صحيح";
+
+          }
+
+
+          /* كلمة سر ضعيفة */
+
+          else if (
+            error.code ===
+            "auth/weak-password"
+          ) {
+
+            message.textContent =
+              "❌ كلمة السر ضعيفة";
+
+          }
+
+
+          /* مشكلة الصلاحيات */
+
+          else if (
+            error.code ===
+            "permission-denied"
+          ) {
+
+            message.textContent =
+              "❌ Firebase رفض حفظ معلومات الحساب. نحتاج نصلح Rules.";
+
+          }
+
+
+          /* خطأ آخر */
+
+          else {
+
+            message.textContent =
+              "❌ حدث خطأ أثناء إنشاء الحساب: " +
+              error.message;
+
+          }
+
+
+          message.style.color =
+            "red";
+
+
+          createAccount.disabled =
+            false;
+
+          createAccount.textContent =
+            "إنشاء الحساب 💗";
+
+        }
+
+      }
+    );
+
+  </script>
 
 </body>
+
 </html>
