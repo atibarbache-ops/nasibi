@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>البحث - نصيبي 💍</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
@@ -17,14 +23,19 @@
 
     <p>تعارف جاد ومحترم 💗</p>
 
+
     <div class="search-box">
 
         <label>الجنس</label>
 
         <select id="searchGender">
+
             <option value="">الكل</option>
+
             <option value="رجل">رجل</option>
+
             <option value="امرأة">امرأة</option>
+
         </select>
 
 
@@ -34,8 +45,7 @@
             type="number"
             id="minAge"
             min="18"
-            placeholder="18"
-        >
+            placeholder="18">
 
 
         <label>العمر الأقصى</label>
@@ -44,8 +54,7 @@
             type="number"
             id="maxAge"
             min="18"
-            placeholder="40"
-        >
+            placeholder="40">
 
 
         <label>الولاية</label>
@@ -101,38 +110,69 @@
             <option>النعامة</option>
             <option>عين تموشنت</option>
             <option>غرداية</option>
+            <option>غليزان</option>
+            <option>تيميمون</option>
+            <option>برج باجي مختار</option>
+            <option>أولاد جلال</option>
+            <option>بني عباس</option>
+            <option>عين صالح</option>
+            <option>عين قزام</option>
+            <option>تقرت</option>
+            <option>جانت</option>
+            <option>المغير</option>
+            <option>المنيعة</option>
 
         </select>
 
 
-        <button id="searchBtn">
+        <button
+            id="searchBtn"
+            type="button">
+
             🔎 بحث
+
         </button>
 
     </div>
 
 
     <div id="loading">
+
         ⏳ جاري تحميل المستخدمين...
+
     </div>
 
 
-    <div id="results" class="results"></div>
+    <div
+        id="results"
+        class="results">
+
+    </div>
 
 
-    <a href="profile.html" class="back">
+    <a
+        href="profile.html"
+        class="back">
+
         👤 ملفي الشخصي
+
     </a>
 
 </div>
 
 
-<!-- Firebase -->
-
 <script type="module">
 
-import { initializeApp }
+
+/* ==================================================
+   FIREBASE
+================================================== */
+
+import {
+    initializeApp
+}
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
     getFirestore,
@@ -145,6 +185,7 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
 import {
     getAuth,
     onAuthStateChanged
@@ -152,105 +193,175 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-// 🔥 معلومات مشروع Firebase
+/* ==================================================
+   معلومات Firebase
+================================================== */
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBkjw6UKO0Mfm5Iu-z3akuITd8CdLqInZs",
+    apiKey:
+        "AIzaSyBkjw6UKO0Mfm5Iu-z3akuITd8CdLqInZs",
 
-    authDomain: "nassibi-f7c52.firebaseapp.com",
+    authDomain:
+        "nassibi-f7c52.firebaseapp.com",
 
-    projectId: "nassibi-f7c52",
+    projectId:
+        "nassibi-f7c52",
 
-    storageBucket: "nassibi-f7c52.firebasestorage.app",
+    storageBucket:
+        "nassibi-f7c52.firebasestorage.app",
 
-    messagingSenderId: "845547151433",
+    messagingSenderId:
+        "845547151433",
 
-    appId: "1:845547151433:web:0819069e6c353c7672df98"
+    appId:
+        "1:845547151433:web:0819069e6c353c7672df98"
 
 };
 
 
-// تشغيل Firebase
+/* تشغيل Firebase */
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
 
-const auth = getAuth(app);
+const db =
+    getFirestore(app);
 
+
+const auth =
+    getAuth(app);
+
+
+/* ==================================================
+   المستخدم الحالي
+================================================== */
 
 let currentUser = null;
 
 
-// معرفة المستخدم الحالي
+onAuthStateChanged(
+    auth,
+    function(user) {
 
-onAuthStateChanged(auth, function(user) {
+        currentUser = user;
 
-    currentUser = user;
-console.log("المستخدم الحالي:", user);
+        console.log(
+            "المستخدم الحالي:",
+            user
+        );
 
-});
+    }
+);
 
 
-// عناصر الصفحة
+/* ==================================================
+   عناصر الصفحة
+================================================== */
 
 const searchGender =
-    document.getElementById("searchGender");
+    document.getElementById(
+        "searchGender"
+    );
+
 
 const minAge =
-    document.getElementById("minAge");
+    document.getElementById(
+        "minAge"
+    );
+
 
 const maxAge =
-    document.getElementById("maxAge");
+    document.getElementById(
+        "maxAge"
+    );
+
 
 const searchWilaya =
-    document.getElementById("searchWilaya");
+    document.getElementById(
+        "searchWilaya"
+    );
+
 
 const searchBtn =
-    document.getElementById("searchBtn");
+    document.getElementById(
+        "searchBtn"
+    );
+
 
 const results =
-    document.getElementById("results");
+    document.getElementById(
+        "results"
+    );
+
 
 const loading =
-    document.getElementById("loading");
+    document.getElementById(
+        "loading"
+    );
 
 
-// جميع المستخدمين من Firestore
+/* ==================================================
+   المستخدمين
+================================================== */
 
 let users = [];
 
 
-// تحميل المستخدمين
+/* ==================================================
+   تحميل المستخدمين من Firestore
+================================================== */
 
 async function loadUsers() {
 
     try {
 
-        loading.style.display = "block";
+        loading.style.display =
+            "block";
+
+        loading.textContent =
+            "⏳ جاري تحميل المستخدمين...";
+
 
         const snapshot =
-            await getDocs(collection(db, "users"));
+            await getDocs(
+                collection(
+                    db,
+                    "users"
+                )
+            );
+
 
         users = [];
 
-        snapshot.forEach(function(document) {
 
-            users.push({
+        snapshot.forEach(
+            function(documentSnapshot) {
 
-                id: document.id,
-
-                ...document.data()
-
-            });
-
-        });
+                const data =
+                    documentSnapshot.data();
 
 
-        loading.style.display = "none";
+                users.push({
+
+                    id:
+                        documentSnapshot.id,
+
+                    ...data
+
+                });
+
+            }
+        );
+
+
+        loading.style.display =
+            "none";
+
 
         showUsers(users);
+
 
         console.log(
             "تم تحميل المستخدمين:",
@@ -259,21 +370,45 @@ async function loadUsers() {
 
     }
 
+
     catch(error) {
+
+        console.error(
+            "Firestore Error:",
+            error
+        );
+
+
+        loading.style.display =
+            "block";
+
 
         loading.textContent =
             "❌ حدث خطأ أثناء تحميل المستخدمين";
 
-        console.error(error);
+
+        results.innerHTML =
+
+            "<p class='no-results'>" +
+
+            "تأكدي أن Firestore مفعّل وأن مجموعة users موجودة." +
+
+            "</p>";
 
     }
 
 }
 
 
-// الإعجاب
+/* ==================================================
+   الإعجاب
+================================================== */
 
-async function likeUser(userId, button) {
+async function likeUser(
+    userId,
+    button
+) {
+
 
     if (!currentUser) {
 
@@ -286,40 +421,80 @@ async function likeUser(userId, button) {
     }
 
 
+    /* لا يمكن الإعجاب بالنفس */
+
+    if (
+        currentUser.uid === userId
+    ) {
+
+        alert(
+            "⚠️ لا يمكنك الإعجاب بملفك الشخصي"
+        );
+
+        return;
+
+    }
+
+
     const likeId =
-        currentUser.uid + "_" + userId;
+        currentUser.uid +
+        "_" +
+        userId;
 
 
     const likeRef =
-        doc(db, "likes", likeId);
+        doc(
+            db,
+            "likes",
+            likeId
+        );
 
 
     try {
 
+
         const likeSnapshot =
-            await getDoc(likeRef);
+            await getDoc(
+                likeRef
+            );
 
 
-        if (likeSnapshot.exists()) {
+        if (
+            likeSnapshot.exists()
+        ) {
 
-            await deleteDoc(likeRef);
+
+            await deleteDoc(
+                likeRef
+            );
+
 
             button.textContent =
                 "❤️ إعجاب";
 
+
         }
+
 
         else {
 
-            await setDoc(likeRef, {
 
-                from: currentUser.uid,
+            await setDoc(
+                likeRef,
+                {
 
-                to: userId,
+                    from:
+                        currentUser.uid,
 
-                createdAt: new Date()
+                    to:
+                        userId,
 
-            });
+                    createdAt:
+                        new Date()
+
+                }
+            );
+
 
             button.textContent =
                 "💗 تم الإعجاب";
@@ -328,9 +503,14 @@ async function likeUser(userId, button) {
 
     }
 
+
     catch(error) {
 
-        console.error(error);
+        console.error(
+            "Like Error:",
+            error
+        );
+
 
         alert(
             "❌ حدث خطأ أثناء الإعجاب"
@@ -341,19 +521,28 @@ async function likeUser(userId, button) {
 }
 
 
-// عرض المستخدمين
+/* ==================================================
+   عرض المستخدمين
+================================================== */
 
-async function showUsers(list) {
+async function showUsers(
+    list
+) {
+
 
     results.innerHTML = "";
 
 
-    if (list.length === 0) {
+    if (
+        list.length === 0
+    ) {
 
         results.innerHTML =
 
             "<p class='no-results'>" +
+
             "❌ لم نجد أشخاصًا بهذه المواصفات" +
+
             "</p>";
 
         return;
@@ -361,94 +550,197 @@ async function showUsers(list) {
     }
 
 
-    for (const user of list) {
+    for (
+        const user of list
+    ) {
+
+
+        /* إخفاء المستخدم الحالي */
+
+        if (
+            currentUser &&
+            user.id === currentUser.uid
+        ) {
+
+            continue;
+
+        }
+
 
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        card.className = "user-card";
+
+        card.className =
+            "user-card";
 
 
         const userName =
-            user.name || "مستخدم";
+            user.name ||
+            "مستخدم";
+
 
         const userAge =
-            user.age || "غير محدد";
+            user.age ||
+            "غير محدد";
+
 
         const userGender =
-            user.gender || "غير محدد";
+            user.gender ||
+            "غير محدد";
+
 
         const userWilaya =
-            user.wilaya || "غير محددة";
+            user.wilaya ||
+            "غير محددة";
+
+
+        const userCity =
+            user.city ||
+            "";
+
 
         const userBio =
             user.bio ||
             "لم تتم إضافة نبذة بعد";
 
 
-        card.innerHTML = 
+        /* ==================================================
+           الصورة
+        ================================================== */
 
-            <div class="user-avatar">
-                👤
-            </div>
+        let photoHTML =
+
+            '<div class="user-avatar">👤</div>';
+
+
+        if (
+            user.photo
+        ) {
+
+            photoHTML =
+
+                '<img src="' +
+                user.photo +
+                '" class="user-avatar" alt="صورة المستخدم">';
+
+        }
+
+
+        /* ==================================================
+           بطاقة المستخدم
+        ================================================== */
+
+        card.innerHTML = `
+
+            ${photoHTML}
 
             <h2>
-                ${userName}
+                ${escapeHTML(userName)}
             </h2>
 
             <p>
-                🎂 ${userAge} سنة
+                🎂 ${escapeHTML(String(userAge))} سنة
             </p>
 
             <p>
-                🚻 ${userGender}
+                🚻 ${escapeHTML(userGender)}
             </p>
 
             <p>
-                📍 ${userWilaya}
+                📍 ${escapeHTML(userWilaya)}
+                ${userCity
+                    ? " - " + escapeHTML(userCity)
+                    : ""
+                }
             </p>
 
             <div class="user-bio">
-                ${userBio}
+                ${escapeHTML(userBio)}
             </div>
 
-            <button class="like-user">
+            <button
+                class="like-user"
+                type="button">
+
                 ❤️ إعجاب
+
             </button>
 
-            <button class="contact-user">
+            <button
+                class="contact-user"
+                type="button">
+
                 💌 تواصل
+
             </button>
 
-        ;
+        `;
 
 
         const likeButton =
-            card.querySelector(".like-user");
+            card.querySelector(
+                ".like-user"
+            );
 
 
-        // معرفة إذا كان المستخدم أعجب به من قبل
+        /* ==================================================
+           معرفة الإعجاب السابق
+        ================================================== */
 
         if (currentUser) {
 
             const likeId =
-                currentUser.uid + "_" + user.id;
+                currentUser.uid +
+                "_" +
+                user.id;
+
 
             const likeRef =
-                doc(db, "likes", likeId);
+                doc(
+                    db,
+                    "likes",
+                    likeId
+                );
 
-            const likeSnapshot =
-                await getDoc(likeRef);
 
-            if (likeSnapshot.exists()) {
+            try {
 
-                likeButton.textContent =
-                    "💗 تم الإعجاب";
+                const likeSnapshot =
+                    await getDoc(
+                        likeRef
+                    );
+
+
+                if (
+                    likeSnapshot.exists()
+                ) {
+
+                    likeButton.textContent =
+                        "💗 تم الإعجاب";
+
+                }
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    error
+                );
 
             }
 
         }
-likeButton.addEventListener(
+
+
+        /* ==================================================
+           زر الإعجاب
+        ================================================== */
+
+        likeButton.addEventListener(
             "click",
             function() {
 
@@ -461,23 +753,32 @@ likeButton.addEventListener(
         );
 
 
+        /* ==================================================
+           زر التواصل
+        ================================================== */
+
         const contactButton =
-            card.querySelector(".contact-user");
+            card.querySelector(
+                ".contact-user"
+            );
 
 
         contactButton.addEventListener(
             "click",
             function() {
 
+
                 localStorage.setItem(
                     "chatUser",
                     userName
                 );
 
+
                 localStorage.setItem(
                     "chatUserId",
                     user.id
                 );
+
 
                 window.location.href =
                     "chat.html";
@@ -486,65 +787,154 @@ likeButton.addEventListener(
         );
 
 
-        results.appendChild(card);
+        results.appendChild(
+            card
+        );
 
     }
 
 }
 
 
-// البحث
+/* ==================================================
+   حماية النصوص
+================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ==================================================
+   البحث
+================================================== */
 
 function searchUsers() {
+
 
     const gender =
         searchGender.value;
 
+
     const minimum =
-        Number(minAge.value) || 18;
+        Number(
+            minAge.value
+        ) || 18;
+
 
     const maximum =
-        Number(maxAge.value) || 100;
+        Number(
+            maxAge.value
+        ) || 100;
+
 
     const wilaya =
         searchWilaya.value;
 
 
+    if (
+        minimum < 18
+    ) {
+
+        alert(
+            "⚠️ العمر الأدنى يجب أن يكون 18 سنة أو أكثر"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        maximum < minimum
+    ) {
+
+        alert(
+            "⚠️ العمر الأقصى يجب أن يكون أكبر من العمر الأدنى"
+        );
+
+        return;
+
+    }
+
+
     const filtered =
-        users.filter(function(user) {
-
-            const userAge =
-                Number(user.age);
+        users.filter(
+            function(user) {
 
 
-            const genderMatch =
-                gender === "" ||
-                user.gender === gender;
+                const userAge =
+                    Number(
+                        user.age
+                    );
 
 
-            const ageMatch =
-                userAge >= minimum &&
-                userAge <= maximum;
+                const genderMatch =
+                    gender === "" ||
+                    user.gender === gender;
 
 
-            const wilayaMatch =
-                wilaya === "" ||
-                user.wilaya === wilaya;
+                const ageMatch =
+                    userAge >= minimum &&
+                    userAge <= maximum;
 
 
-            return (
-                genderMatch &&
-                ageMatch &&
-                wilayaMatch
-            );
-
-        });
+                const wilayaMatch =
+                    wilaya === "" ||
+                    user.wilaya === wilaya;
 
 
-    showUsers(filtered);
+                return (
+
+                    genderMatch &&
+                    ageMatch &&
+                    wilayaMatch
+
+                );
+
+            }
+        );
+
+
+    showUsers(
+        filtered
+    );
 
 }
 
+
+/* ==================================================
+   زر البحث
+================================================== */
 
 searchBtn.addEventListener(
     "click",
@@ -552,11 +942,15 @@ searchBtn.addEventListener(
 );
 
 
-// تشغيل التحميل
+/* ==================================================
+   تشغيل الصفحة
+================================================== */
 
 loadUsers();
 
 </script>
 
+
 </body>
+
 </html>
