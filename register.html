@@ -66,6 +66,7 @@
       font-size: 15px;
       outline: none;
       font-family: Arial, sans-serif;
+      background: white;
     }
 
     input:focus,
@@ -82,6 +83,7 @@
     #age {
       margin-top: 8px;
       font-size: 14px;
+      min-height: 20px;
     }
 
     button {
@@ -95,6 +97,7 @@
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:hover {
@@ -111,6 +114,7 @@
       margin-top: 15px;
       font-size: 14px;
       font-weight: bold;
+      min-height: 20px;
     }
 
     .login-link {
@@ -141,6 +145,8 @@
     </div>
 
 
+    <!-- الاسم -->
+
     <label for="name">
       الاسم الكامل
     </label>
@@ -149,8 +155,11 @@
       type="text"
       id="name"
       placeholder="اكتبي اسمك"
+      autocomplete="name"
     >
 
+
+    <!-- تاريخ الميلاد -->
 
     <label for="birthDate">
       تاريخ الميلاد
@@ -163,6 +172,8 @@
 
     <div id="age"></div>
 
+
+    <!-- الجنس -->
 
     <label for="gender">
       الجنس
@@ -184,6 +195,8 @@
 
     </select>
 
+
+    <!-- الولاية -->
 
     <label for="wilaya">
       الولاية
@@ -247,6 +260,8 @@
     </select>
 
 
+    <!-- المدينة -->
+
     <label for="city">
       المدينة
     </label>
@@ -258,6 +273,8 @@
     >
 
 
+    <!-- البريد -->
+
     <label for="email">
       البريد الإلكتروني
     </label>
@@ -266,8 +283,11 @@
       type="email"
       id="email"
       placeholder="example@gmail.com"
+      autocomplete="email"
     >
 
+
+    <!-- كلمة السر -->
 
     <label for="password">
       كلمة السر
@@ -277,8 +297,11 @@
       type="password"
       id="password"
       placeholder="6 أحرف على الأقل"
+      autocomplete="new-password"
     >
 
+
+    <!-- نبذة -->
 
     <label for="bio">
       نبذة عنك
@@ -292,15 +315,21 @@
 
     <!-- زر إنشاء الحساب -->
 
-    <button id="createAccount">
+    <button
+      type="button"
+      id="createAccount">
 
       إنشاء الحساب 💗
 
     </button>
 
 
+    <!-- الرسالة -->
+
     <div id="message"></div>
 
+
+    <!-- تسجيل الدخول -->
 
     <div class="login-link">
 
@@ -315,11 +344,11 @@
   </div>
 
 
-  <script type="module">
-
-    /* =========================
+  <!-- =========================
        Firebase
-    ========================= */
+  ========================== -->
+
+  <script type="module">
 
     import {
       auth,
@@ -341,7 +370,7 @@
 
     /* =========================
        العناصر
-    ========================= */
+    ========================== */
 
     const nameInput =
       document.getElementById("name");
@@ -349,7 +378,7 @@
     const birthDate =
       document.getElementById("birthDate");
 
-    const age =
+    const ageElement =
       document.getElementById("age");
 
     const gender =
@@ -381,59 +410,20 @@
 
 
     /* =========================
-       التحقق من كل المعلومات
-    ========================= */
+       رسالة
+    ========================== */
 
-    function checkForm() {
+    function showMessage(text, color) {
 
-      const nameOK =
-        nameInput.value.trim() !== "";
-
-      const birthOK =
-        birthDate.value !== "";
-
-      const genderOK =
-        gender.value !== "";
-
-      const wilayaOK =
-        wilaya.value !== "";
-
-      const cityOK =
-        city.value.trim() !== "";
-
-      const emailOK =
-        email.value.trim() !== "";
-
-      const passwordOK =
-        password.value.length >= 6;
-
-      const ageOK =
-        userAge >= 18;
-      if (
-        nameOK &&
-        birthOK &&
-        genderOK &&
-        wilayaOK &&
-        cityOK &&
-        emailOK &&
-        passwordOK &&
-        ageOK
-      ) {
-
-        createAccount.disabled = false;
-
-      } else {
-
-        createAccount.disabled = true;
-
-      }
+      message.textContent = text;
+      message.style.color = color;
 
     }
 
 
     /* =========================
        حساب العمر
-    ========================= */
+    ========================== */
 
     function calculateAge() {
 
@@ -441,9 +431,7 @@
 
         userAge = 0;
 
-        age.textContent = "";
-
-        checkForm();
+        ageElement.textContent = "";
 
         return;
 
@@ -462,17 +450,16 @@
         birth.getFullYear();
 
 
-      const month =
+      const monthDifference =
         today.getMonth() -
         birth.getMonth();
 
 
       if (
-        month < 0 ||
+        monthDifference < 0 ||
         (
-          month === 0 &&
-          today.getDate() <
-          birth.getDate()
+          monthDifference === 0 &&
+          today.getDate() < birth.getDate()
         )
       ) {
 
@@ -486,91 +473,234 @@
 
       if (years >= 18) {
 
-        age.textContent =
-          "✅ عمرك: " +
-          years +
-          " سنة";
+        ageElement.textContent =
+          "✅ عمرك: " + years + " سنة";
 
-        age.style.color = "green";
+        ageElement.style.color =
+          "green";
 
       } else {
 
-        age.textContent =
+        ageElement.textContent =
           "❌ التسجيل مسموح لمن عمره 18 سنة أو أكثر";
 
-        age.style.color = "red";
+        ageElement.style.color =
+          "red";
 
       }
-
-
-      checkForm();
 
     }
 
 
+    /* =========================
+       تغيير تاريخ الميلاد
+    ========================== */
+
     birthDate.addEventListener(
       "change",
-      calculateAge
-    );
+      function () {
 
+        calculateAge();
 
-    /* =========================
-       مراقبة باقي الحقول
-    ========================= */
-
-    nameInput.addEventListener(
-      "input",
-      checkForm
-    );
-
-    gender.addEventListener(
-      "change",
-      checkForm
-    );
-
-    wilaya.addEventListener(
-      "change",
-      checkForm
-    );
-
-    city.addEventListener(
-      "input",
-      checkForm
-    );
-
-    email.addEventListener(
-      "input",
-      checkForm
-    );
-
-    password.addEventListener(
-      "input",
-      checkForm
+      }
     );
 
 
     /* =========================
        إنشاء الحساب
-    ========================= */
+    ========================== */
 
     createAccount.addEventListener(
       "click",
       async function () {
 
-        message.textContent = "";
+
+        showMessage("", "");
 
 
-        /* التحقق النهائي */
+        /* حساب العمر من جديد */
 
         calculateAge();
 
 
-        if (userAge < 18) {
+        /* =========================
+           التحقق من الاسم
+        ========================== */
 
-          message.textContent =
-            "❌ يجب أن يكون عمرك 18 سنة أو أكثر";
+        if (
+          nameInput.value.trim() === ""
+        ) {
 
-          message.style.color = "red";
+          showMessage(
+            "⚠️ اكتبي الاسم الكامل",
+            "red"
+          );
+
+          nameInput.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           التحقق من تاريخ الميلاد
+        ========================== */
+
+        if (
+          birthDate.value === ""
+        ) {
+
+          showMessage(
+            "⚠️ اختاري تاريخ الميلاد",
+            "red"
+          );
+
+          birthDate.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           التحقق من العمر
+        ========================== */
+
+        if (
+          userAge < 18
+        ) {
+
+          showMessage(
+            "❌ يجب أن يكون عمرك 18 سنة أو أكثر",
+            "red"
+          );
+
+          return;
+
+        }
+
+
+        /* =========================
+           الجنس
+        ========================== */
+
+        if (
+          gender.value === ""
+        ) {
+
+          showMessage(
+            "⚠️ اختاري الجنس",
+            "red"
+          );
+
+          gender.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           الولاية
+        ========================== */
+
+        if (
+          wilaya.value === ""
+        ) {
+
+          showMessage(
+            "⚠️ اختاري الولاية",
+            "red"
+          );
+
+          wilaya.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           المدينة
+        ========================== */
+
+        if (
+          city.value.trim() === ""
+        ) {
+
+          showMessage(
+            "⚠️ اكتبي المدينة",
+            "red"
+          );
+
+          city.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           البريد
+        ========================== */
+
+        const emailValue =
+          email.value.trim();
+
+
+        if (
+          emailValue === ""
+        ) {
+
+          showMessage(
+            "⚠️ اكتبي البريد الإلكتروني",
+            "red"
+          );
+
+          email.focus();
+
+          return;
+
+        }
+
+
+        /* التحقق من شكل البريد */
+
+        const emailPattern =
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (
+          !emailPattern.test(emailValue)
+        ) {
+
+          showMessage(
+            "❌ البريد الإلكتروني غير صحيح",
+            "red"
+          );
+
+          email.focus();
+
+          return;
+
+        }
+
+
+        /* =========================
+           كلمة السر
+        ========================== */
+
+        if (
+          password.value === ""
+        ) {
+
+          showMessage(
+            "⚠️ اكتبي كلمة السر",
+            "red"
+          );
+
+          password.focus();
 
           return;
 
@@ -578,35 +708,24 @@
 
 
         if (
-          nameInput.value.trim() === "" ||
-          gender.value === "" ||
-          wilaya.value === "" ||
-          city.value.trim() === "" ||
-          email.value.trim() === "" ||
-          password.value === ""
+          password.value.length < 6
         ) {
 
-          message.textContent =
-            "⚠️ املئي جميع المعلومات المطلوبة";
+          showMessage(
+            "❌ كلمة السر يجب أن تحتوي على 6 أحرف على الأقل",
+            "red"
+          );
 
-          message.style.color = "red";
-
-          return;
-
-        }
-
-
-        if (password.value.length < 6) {
-
-          message.textContent =
-            "❌ كلمة السر يجب أن تحتوي على 6 أحرف على الأقل";
-
-          message.style.color = "red";
+          password.focus();
 
           return;
 
         }
 
+
+        /* =========================
+           تعطيل الزر أثناء التسجيل
+        ========================== */
 
         createAccount.disabled = true;
 
@@ -616,14 +735,15 @@
 
         try {
 
+
           /* =========================
-             إنشاء حساب Firebase
-          ========================= */
+             إنشاء المستخدم في Firebase Auth
+          ========================== */
 
           const userCredential =
             await createUserWithEmailAndPassword(
               auth,
-              email.value.trim(),
+              emailValue,
               password.value
             );
 
@@ -633,8 +753,47 @@
 
 
           /* =========================
-             حفظ معلومات المستخدم
-          ========================= */
+             بيانات المستخدم
+          ========================== */
+
+          const userData = {
+
+            uid:
+              user.uid,
+
+            name:
+              nameInput.value.trim(),
+
+            birthDate:
+              birthDate.value,
+
+            age:
+              userAge,
+
+            gender:
+              gender.value,
+
+            wilaya:
+              wilaya.value,
+
+            city:
+              city.value.trim(),
+
+            email:
+              emailValue,
+
+            bio:
+              bio.value.trim(),
+
+            createdAt:
+              serverTimestamp()
+
+          };
+
+
+          /* =========================
+             حفظ البيانات في Firestore
+          ========================== */
 
           await setDoc(
 
@@ -644,41 +803,14 @@
               user.uid
             ),
 
-            {
-
-              uid: user.uid,
-
-              name:
-                nameInput.value.trim(),
-
-              age:
-                userAge,
-
-              gender:
-                gender.value,
-
-              wilaya:
-                wilaya.value,
-
-              city:
-                city.value.trim(),
-
-              email:
-                email.value.trim(),
-
-              bio:
-                bio.value.trim(),
-              createdAt:
-                serverTimestamp()
-
-            }
+            userData
 
           );
 
 
           /* =========================
-             LocalStorage
-          ========================= */
+             حفظ بيانات محلية
+          ========================== */
 
           localStorage.setItem(
             "userUid",
@@ -692,7 +824,7 @@
 
           localStorage.setItem(
             "userAge",
-            userAge
+            String(userAge)
           );
 
           localStorage.setItem(
@@ -712,7 +844,7 @@
 
           localStorage.setItem(
             "userEmail",
-            email.value.trim()
+            emailValue
           );
 
           localStorage.setItem(
@@ -728,18 +860,21 @@
 
           /* =========================
              نجاح
-          ========================= */
+          ========================== */
 
-          message.textContent =
-            "✅ تم إنشاء الحساب بنجاح!";
-
-          message.style.color =
-            "green";
+          showMessage(
+            "✅ تم إنشاء الحساب بنجاح!",
+            "green"
+          );
 
 
           createAccount.textContent =
             "✅ تم إنشاء الحساب";
 
+
+          /* =========================
+             الانتقال إلى Profile
+          ========================== */
 
           setTimeout(
             function () {
@@ -755,18 +890,24 @@
         } catch (error) {
 
           console.error(
-            "Register Error:",
+            "Firebase Register Error:",
             error
           );
 
+
+          /* =========================
+             أخطاء Firebase Auth
+          ========================== */
 
           if (
             error.code ===
             "auth/email-already-in-use"
           ) {
 
-            message.textContent =
-              "❌ هذا البريد الإلكتروني مستعمل من قبل";
+            showMessage(
+              "❌ هذا البريد الإلكتروني مستعمل من قبل",
+              "red"
+            );
 
           }
 
@@ -775,8 +916,10 @@
             "auth/invalid-email"
           ) {
 
-            message.textContent =
-              "❌ البريد الإلكتروني غير صحيح";
+            showMessage(
+              "❌ البريد الإلكتروني غير صحيح",
+              "red"
+            );
 
           }
 
@@ -785,8 +928,34 @@
             "auth/weak-password"
           ) {
 
-            message.textContent =
-              "❌ كلمة السر ضعيفة";
+            showMessage(
+              "❌ كلمة السر ضعيفة، استعملي 6 أحرف أو أكثر",
+              "red"
+            );
+
+          }
+
+          else if (
+            error.code ===
+            "auth/network-request-failed"
+          ) {
+
+            showMessage(
+              "❌ ماكانش اتصال بالإنترنت",
+              "red"
+            );
+
+          }
+
+          else if (
+            error.code ===
+            "auth/operation-not-allowed"
+          ) {
+
+            showMessage(
+              "❌ تسجيل الدخول بالبريد الإلكتروني غير مفعّل في Firebase",
+              "red"
+            );
 
           }
 
@@ -797,26 +966,24 @@
             "firestore/permission-denied"
           ) {
 
-            message.textContent =
-              "❌ تم إنشاء الحساب لكن Firebase رفض حفظ المعلومات. لازم نصلح Firestore Rules.";
+            showMessage(
+              "❌ الحساب تسجل، لكن Firestore رفض حفظ البيانات. لازم نصلح Rules.",
+              "red"
+            );
 
           }
 
           else {
 
-            message.textContent =
-              "❌ حدث خطأ أثناء إنشاء الحساب";
-
-            console.error(
-              error.message
+            showMessage(
+              "❌ حدث خطأ أثناء إنشاء الحساب",
+              "red"
             );
 
           }
 
 
-          message.style.color =
-            "red";
-
+          /* إعادة الزر */
 
           createAccount.disabled =
             false;
@@ -831,10 +998,24 @@
 
 
     /* =========================
-       البداية
-    ========================= */
+       منع Enter من أي تصرف غريب
+    ========================== */
 
-    checkForm();
+    document.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (
+          event.key === "Enter" &&
+          document.activeElement !== bio
+        ) {
+
+          event.preventDefault();
+
+        }
+
+      }
+    );
 
   </script>
 
