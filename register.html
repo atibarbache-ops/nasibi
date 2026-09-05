@@ -141,8 +141,6 @@
     </div>
 
 
-    <!-- الاسم -->
-
     <label for="name">
       الاسم الكامل
     </label>
@@ -153,8 +151,6 @@
       placeholder="اكتبي اسمك"
     >
 
-
-    <!-- تاريخ الميلاد -->
 
     <label for="birthDate">
       تاريخ الميلاد
@@ -167,8 +163,6 @@
 
     <div id="age"></div>
 
-
-    <!-- الجنس -->
 
     <label for="gender">
       الجنس
@@ -190,8 +184,6 @@
 
     </select>
 
-
-    <!-- الولاية -->
 
     <label for="wilaya">
       الولاية
@@ -255,8 +247,6 @@
     </select>
 
 
-    <!-- المدينة -->
-
     <label for="city">
       المدينة
     </label>
@@ -267,8 +257,6 @@
       placeholder="اكتبي مدينتك"
     >
 
-
-    <!-- البريد -->
 
     <label for="email">
       البريد الإلكتروني
@@ -281,8 +269,6 @@
     >
 
 
-    <!-- كلمة السر -->
-
     <label for="password">
       كلمة السر
     </label>
@@ -294,8 +280,6 @@
     >
 
 
-    <!-- نبذة -->
-
     <label for="bio">
       نبذة عنك
     </label>
@@ -306,11 +290,9 @@
     ></textarea>
 
 
-    <!-- الزر -->
+    <!-- زر إنشاء الحساب -->
 
-    <button
-      id="createAccount"
-      disabled>
+    <button id="createAccount">
 
       إنشاء الحساب 💗
 
@@ -399,87 +381,171 @@
 
 
     /* =========================
+       التحقق من كل المعلومات
+    ========================= */
+
+    function checkForm() {
+
+      const nameOK =
+        nameInput.value.trim() !== "";
+
+      const birthOK =
+        birthDate.value !== "";
+
+      const genderOK =
+        gender.value !== "";
+
+      const wilayaOK =
+        wilaya.value !== "";
+
+      const cityOK =
+        city.value.trim() !== "";
+
+      const emailOK =
+        email.value.trim() !== "";
+
+      const passwordOK =
+        password.value.length >= 6;
+
+      const ageOK =
+        userAge >= 18;
+      if (
+        nameOK &&
+        birthOK &&
+        genderOK &&
+        wilayaOK &&
+        cityOK &&
+        emailOK &&
+        passwordOK &&
+        ageOK
+      ) {
+
+        createAccount.disabled = false;
+
+      } else {
+
+        createAccount.disabled = true;
+
+      }
+
+    }
+
+
+    /* =========================
        حساب العمر
     ========================= */
 
-    birthDate.addEventListener(
-      "change",
-      function () {
+    function calculateAge() {
 
-        if (!this.value) {
+      if (!birthDate.value) {
 
-          userAge = 0;
+        userAge = 0;
 
-          age.textContent = "";
+        age.textContent = "";
 
-          createAccount.disabled =
-            true;
+        checkForm();
 
-          return;
-
-        }
-
-
-        const today =
-          new Date();
-
-
-        const birth =
-          new Date(this.value);
-          let years =
-          today.getFullYear() -
-          birth.getFullYear();
-
-
-        const month =
-          today.getMonth() -
-          birth.getMonth();
-
-
-        if (
-          month < 0 ||
-          (
-            month === 0 &&
-            today.getDate() <
-            birth.getDate()
-          )
-        ) {
-
-          years--;
-
-        }
-
-
-        userAge = years;
-
-
-        if (years >= 18) {
-
-          age.textContent =
-            "✅ عمرك: " +
-            years +
-            " سنة";
-
-          age.style.color =
-            "green";
-
-          createAccount.disabled =
-            false;
-
-        } else {
-
-          age.textContent =
-            "❌ التسجيل مسموح لمن عمره 18 سنة أو أكثر";
-
-          age.style.color =
-            "red";
-
-          createAccount.disabled =
-            true;
-
-        }
+        return;
 
       }
+
+
+      const today = new Date();
+
+      const birth = new Date(
+        birthDate.value + "T00:00:00"
+      );
+
+
+      let years =
+        today.getFullYear() -
+        birth.getFullYear();
+
+
+      const month =
+        today.getMonth() -
+        birth.getMonth();
+
+
+      if (
+        month < 0 ||
+        (
+          month === 0 &&
+          today.getDate() <
+          birth.getDate()
+        )
+      ) {
+
+        years--;
+
+      }
+
+
+      userAge = years;
+
+
+      if (years >= 18) {
+
+        age.textContent =
+          "✅ عمرك: " +
+          years +
+          " سنة";
+
+        age.style.color = "green";
+
+      } else {
+
+        age.textContent =
+          "❌ التسجيل مسموح لمن عمره 18 سنة أو أكثر";
+
+        age.style.color = "red";
+
+      }
+
+
+      checkForm();
+
+    }
+
+
+    birthDate.addEventListener(
+      "change",
+      calculateAge
+    );
+
+
+    /* =========================
+       مراقبة باقي الحقول
+    ========================= */
+
+    nameInput.addEventListener(
+      "input",
+      checkForm
+    );
+
+    gender.addEventListener(
+      "change",
+      checkForm
+    );
+
+    wilaya.addEventListener(
+      "change",
+      checkForm
+    );
+
+    city.addEventListener(
+      "input",
+      checkForm
+    );
+
+    email.addEventListener(
+      "input",
+      checkForm
+    );
+
+    password.addEventListener(
+      "input",
+      checkForm
     );
 
 
@@ -491,23 +557,25 @@
       "click",
       async function () {
 
+        message.textContent = "";
 
-        /* التحقق من العمر */
+
+        /* التحقق النهائي */
+
+        calculateAge();
+
 
         if (userAge < 18) {
 
           message.textContent =
             "❌ يجب أن يكون عمرك 18 سنة أو أكثر";
 
-          message.style.color =
-            "red";
+          message.style.color = "red";
 
           return;
 
         }
 
-
-        /* التحقق من المعلومات */
 
         if (
           nameInput.value.trim() === "" ||
@@ -521,38 +589,32 @@
           message.textContent =
             "⚠️ املئي جميع المعلومات المطلوبة";
 
-          message.style.color =
-            "red";
+          message.style.color = "red";
 
           return;
 
         }
 
-
-        /* كلمة السر */
 
         if (password.value.length < 6) {
 
           message.textContent =
             "❌ كلمة السر يجب أن تحتوي على 6 أحرف على الأقل";
 
-          message.style.color =
-            "red";
+          message.style.color = "red";
 
           return;
 
         }
 
 
-        createAccount.disabled =
-          true;
+        createAccount.disabled = true;
 
         createAccount.textContent =
           "⏳ جاري إنشاء الحساب...";
 
 
         try {
-
 
           /* =========================
              إنشاء حساب Firebase
@@ -572,7 +634,6 @@
 
           /* =========================
              حفظ معلومات المستخدم
-             في Firestore
           ========================= */
 
           await setDoc(
@@ -585,8 +646,7 @@
 
             {
 
-              uid:
-                user.uid,
+              uid: user.uid,
 
               name:
                 nameInput.value.trim(),
@@ -608,7 +668,6 @@
 
               bio:
                 bio.value.trim(),
-
               createdAt:
                 serverTimestamp()
 
@@ -626,48 +685,42 @@
             user.uid
           );
 
-
           localStorage.setItem(
             "userName",
             nameInput.value.trim()
           );
-
 
           localStorage.setItem(
             "userAge",
             userAge
           );
 
-
           localStorage.setItem(
             "userGender",
             gender.value
           );
-
 
           localStorage.setItem(
             "userWilaya",
             wilaya.value
           );
 
-
           localStorage.setItem(
             "userCity",
             city.value.trim()
           );
-
 
           localStorage.setItem(
             "userEmail",
             email.value.trim()
           );
 
-
           localStorage.setItem(
             "userBio",
             bio.value.trim()
           );
-            localStorage.setItem(
+
+          localStorage.setItem(
             "isLoggedIn",
             "true"
           );
@@ -701,10 +754,11 @@
 
         } catch (error) {
 
-          console.error(error);
+          console.error(
+            "Register Error:",
+            error
+          );
 
-
-          /* البريد مستعمل */
 
           if (
             error.code ===
@@ -716,9 +770,6 @@
 
           }
 
-
-          /* البريد غير صحيح */
-
           else if (
             error.code ===
             "auth/invalid-email"
@@ -728,9 +779,6 @@
               "❌ البريد الإلكتروني غير صحيح";
 
           }
-
-
-          /* كلمة سر ضعيفة */
 
           else if (
             error.code ===
@@ -742,27 +790,26 @@
 
           }
 
-
-          /* مشكلة الصلاحيات */
-
           else if (
             error.code ===
-            "permission-denied"
+            "permission-denied" ||
+            error.code ===
+            "firestore/permission-denied"
           ) {
 
             message.textContent =
-              "❌ Firebase رفض حفظ معلومات الحساب. نحتاج نصلح Rules.";
+              "❌ تم إنشاء الحساب لكن Firebase رفض حفظ المعلومات. لازم نصلح Firestore Rules.";
 
           }
-
-
-          /* خطأ آخر */
 
           else {
 
             message.textContent =
-              "❌ حدث خطأ أثناء إنشاء الحساب: " +
-              error.message;
+              "❌ حدث خطأ أثناء إنشاء الحساب";
+
+            console.error(
+              error.message
+            );
 
           }
 
@@ -781,6 +828,13 @@
 
       }
     );
+
+
+    /* =========================
+       البداية
+    ========================= */
+
+    checkForm();
 
   </script>
 
