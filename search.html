@@ -1,3 +1,453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>البحث - نصيبي 💍</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="search-page">
+
+    <h1>🔎 ابحث عن شريك حياتك 💍</h1>
+
+    <p>تعارف جاد ومحترم 💗</p>
+
+    <div class="search-box">
+
+        <label>الجنس</label>
+
+        <select id="searchGender">
+            <option value="">الكل</option>
+            <option value="رجل">رجل</option>
+            <option value="امرأة">امرأة</option>
+        </select>
+
+
+        <label>العمر الأدنى</label>
+
+        <input
+            type="number"
+            id="minAge"
+            min="18"
+            placeholder="18"
+        >
+
+
+        <label>العمر الأقصى</label>
+
+        <input
+            type="number"
+            id="maxAge"
+            min="18"
+            placeholder="40"
+        >
+
+
+        <label>الولاية</label>
+
+        <select id="searchWilaya">
+
+            <option value="">كل الولايات</option>
+
+            <option>أدرار</option>
+            <option>الشلف</option>
+            <option>الأغواط</option>
+            <option>أم البواقي</option>
+            <option>باتنة</option>
+            <option>بجاية</option>
+            <option>بسكرة</option>
+            <option>بشار</option>
+            <option>البليدة</option>
+            <option>البويرة</option>
+            <option>تمنراست</option>
+            <option>تبسة</option>
+            <option>تلمسان</option>
+            <option>تيارت</option>
+            <option>تيزي وزو</option>
+            <option>الجزائر</option>
+            <option>الجلفة</option>
+            <option>جيجل</option>
+            <option>سطيف</option>
+            <option>سعيدة</option>
+            <option>سكيكدة</option>
+            <option>سيدي بلعباس</option>
+            <option>عنابة</option>
+            <option>قالمة</option>
+            <option>قسنطينة</option>
+            <option>المدية</option>
+            <option>مستغانم</option>
+            <option>المسيلة</option>
+            <option>معسكر</option>
+            <option>ورقلة</option>
+            <option>وهران</option>
+            <option>البيض</option>
+            <option>إليزي</option>
+            <option>برج بوعريريج</option>
+            <option>بومرداس</option>
+            <option>الطارف</option>
+            <option>تندوف</option>
+            <option>تيسمسيلت</option>
+            <option>الوادي</option>
+            <option>خنشلة</option>
+            <option>سوق أهراس</option>
+            <option>تيبازة</option>
+            <option>ميلة</option>
+            <option>عين الدفلى</option>
+            <option>النعامة</option>
+            <option>عين تموشنت</option>
+            <option>غرداية</option>
+
+        </select>
+
+
+        <button id="searchBtn">
+            🔎 بحث
+        </button>
+
+    </div>
+
+
+    <div id="loading">
+        ⏳ جاري تحميل المستخدمين...
+    </div>
+
+
+    <div id="results" class="results"></div>
+
+
+    <a href="profile.html" class="back">
+        👤 ملفي الشخصي
+    </a>
+
+</div>
+
+
+<!-- Firebase -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    setDoc,
+    deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+// 🔥 معلومات مشروع Firebase
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBkjw6UKO0Mfm5Iu-z3akuITd8CdLqInZs",
+
+    authDomain: "nassibi-f7c52.firebaseapp.com",
+
+    projectId: "nassibi-f7c52",
+
+    storageBucket: "nassibi-f7c52.firebasestorage.app",
+
+    messagingSenderId: "845547151433",
+
+    appId: "1:845547151433:web:0819069e6c353c7672df98"
+
+};
+
+
+// تشغيل Firebase
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+
+let currentUser = null;
+
+
+// معرفة المستخدم الحالي
+
+onAuthStateChanged(auth, function(user) {
+
+    currentUser = user;
+console.log("المستخدم الحالي:", user);
+
+});
+
+
+// عناصر الصفحة
+
+const searchGender =
+    document.getElementById("searchGender");
+
+const minAge =
+    document.getElementById("minAge");
+
+const maxAge =
+    document.getElementById("maxAge");
+
+const searchWilaya =
+    document.getElementById("searchWilaya");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const results =
+    document.getElementById("results");
+
+const loading =
+    document.getElementById("loading");
+
+
+// جميع المستخدمين من Firestore
+
+let users = [];
+
+
+// تحميل المستخدمين
+
+async function loadUsers() {
+
+    try {
+
+        loading.style.display = "block";
+
+        const snapshot =
+            await getDocs(collection(db, "users"));
+
+        users = [];
+
+        snapshot.forEach(function(document) {
+
+            users.push({
+
+                id: document.id,
+
+                ...document.data()
+
+            });
+
+        });
+
+
+        loading.style.display = "none";
+
+        showUsers(users);
+
+        console.log(
+            "تم تحميل المستخدمين:",
+            users
+        );
+
+    }
+
+    catch(error) {
+
+        loading.textContent =
+            "❌ حدث خطأ أثناء تحميل المستخدمين";
+
+        console.error(error);
+
+    }
+
+}
+
+
+// الإعجاب
+
+async function likeUser(userId, button) {
+
+    if (!currentUser) {
+
+        alert(
+            "⚠️ يجب تسجيل الدخول أولًا للإعجاب"
+        );
+
+        return;
+
+    }
+
+
+    const likeId =
+        currentUser.uid + "_" + userId;
+
+
+    const likeRef =
+        doc(db, "likes", likeId);
+
+
+    try {
+
+        const likeSnapshot =
+            await getDoc(likeRef);
+
+
+        if (likeSnapshot.exists()) {
+
+            await deleteDoc(likeRef);
+
+            button.textContent =
+                "❤️ إعجاب";
+
+        }
+
+        else {
+
+            await setDoc(likeRef, {
+
+                from: currentUser.uid,
+
+                to: userId,
+
+                createdAt: new Date()
+
+            });
+
+            button.textContent =
+                "💗 تم الإعجاب";
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "❌ حدث خطأ أثناء الإعجاب"
+        );
+
+    }
+
+}
+
+
+// عرض المستخدمين
+
+async function showUsers(list) {
+
+    results.innerHTML = "";
+
+
+    if (list.length === 0) {
+
+        results.innerHTML =
+
+            "<p class='no-results'>" +
+            "❌ لم نجد أشخاصًا بهذه المواصفات" +
+            "</p>";
+
+        return;
+
+    }
+
+
+    for (const user of list) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "user-card";
+
+
+        const userName =
+            user.name || "مستخدم";
+
+        const userAge =
+            user.age || "غير محدد";
+
+        const userGender =
+            user.gender || "غير محدد";
+
+        const userWilaya =
+            user.wilaya || "غير محددة";
+
+        const userBio =
+            user.bio ||
+            "لم تتم إضافة نبذة بعد";
+
+
+        card.innerHTML = 
+
+            <div class="user-avatar">
+                👤
+            </div>
+
+            <h2>
+                ${userName}
+            </h2>
+
+            <p>
+                🎂 ${userAge} سنة
+            </p>
+
+            <p>
+                🚻 ${userGender}
+            </p>
+
+            <p>
+                📍 ${userWilaya}
+            </p>
+
+            <div class="user-bio">
+                ${userBio}
+            </div>
+
+            <button class="like-user">
+                ❤️ إعجاب
+            </button>
+
+            <button class="contact-user">
+                💌 تواصل
+            </button>
+
+        ;
+
+
+        const likeButton =
+            card.querySelector(".like-user");
+
+
+        // معرفة إذا كان المستخدم أعجب به من قبل
+
+        if (currentUser) {
+
+            const likeId =
+                currentUser.uid + "_" + user.id;
+
+            const likeRef =
+                doc(db, "likes", likeId);
+
+            const likeSnapshot =
+                await getDoc(likeRef);
+
+            if (likeSnapshot.exists()) {
+
+                likeButton.textContent =
+                    "💗 تم الإعجاب";
+
+            }
+
+        }
 likeButton.addEventListener(
             "click",
             function() {
