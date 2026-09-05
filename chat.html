@@ -2,356 +2,1022 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المحادثة 💌 - نصيبي</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>المحادثة - Nasibi</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f8;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .chat-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 700px;
+      margin: auto;
+      background: white;
+    }
+
+    /* رأس المحادثة */
+
+    .chat-header {
+      background: linear-gradient(135deg, #ff4f87, #ff7aa8);
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      z-index: 2;
+    }
+
+    .back-btn {
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: white;
+      color: #ff4f87;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header-info {
+      flex: 1;
+    }
+
+    .header-info h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .online-status {
+      font-size: 12px;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    /* الرسائل */
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 15px;
+      background:
+        linear-gradient(
+          rgba(255,245,248,0.85),
+          rgba(255,245,248,0.85)
+        );
+    }
+
+    .message-row {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .message-row.me {
+      justify-content: flex-start;
+    }
+
+    .message-row.other {
+      justify-content: flex-end;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .message.me {
+      background: #ff4f87;
+      color: white;
+      border-bottom-left-radius: 5px;
+    }
+
+    .message.other {
+      background: #eeeeee;
+      color: #222;
+      border-bottom-right-radius: 5px;
+    }
+
+    .message-time {
+      display: block;
+      font-size: 10px;
+      margin-top: 5px;
+      opacity: 0.7;
+      text-align: left;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #888;
+      margin-top: 80px;
+      font-size: 15px;
+    }
+
+    /* منطقة الكتابة */
+
+    .input-area {
+      padding: 10px;
+      background: white;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #messageInput {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      padding: 12px 16px;
+      font-size: 15px;
+      outline: none;
+      resize: none;
+      font-family: Arial, sans-serif;
+      min-height: 45px;
+      max-height: 120px;
+    }
+
+    #messageInput:focus {
+      border-color: #ff4f87;
+    }
+
+    #sendBtn {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: #ff4f87;
+      color: white;
+      font-size: 21px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    #sendBtn:hover {
+      background: #e83d73;
+    }
+
+    #sendBtn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* رسائل الحالة */
+
+    .status {
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .status.error {
+      display: block;
+      color: #c62828;
+      background: #ffebee;
+    }
+
+    .status.success {
+      display: block;
+      color: #2e7d32;
+      background: #e8f5e9;
+    }
+
+    /* الهاتف */
+
+    @media (max-width: 600px) {
+
+      .message {
+        max-width: 85%;
+      }
+
+      .chat-header {
+        padding: 12px;
+      }
+        .messages {
+        padding: 15px 10px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-    <div class="chat-card">
+  <div class="chat-container">
 
-        <div class="chat-header">
-            <a href="profile.html" class="back-btn">← رجوع</a>
+    <!-- رأس المحادثة -->
 
-            <h1>💌 المحادثة</h1>
+    <div class="chat-header">
 
-            <p>نتواصل باحترام 💗</p>
+      <button
+        class="back-btn"
+        id="backBtn">
+        ←
+      </button>
+
+      <div class="user-avatar"
+           id="userAvatar">
+        👤
+      </div>
+
+      <div class="header-info">
+
+        <h3 id="chatUserName">
+          المحادثة
+        </h3>
+
+        <div class="online-status"
+             id="chatStatus">
+          جاري التحميل...
         </div>
 
-
-        <!-- الرسائل -->
-
-        <div class="messages" id="messages">
-
-            <p class="message received">
-                مرحبًا 💗
-            </p>
-
-        </div>
-
-
-        <!-- كتابة الرسالة -->
-
-        <div class="chat-input">
-
-            <input
-                type="text"
-                id="messageInput"
-                placeholder="اكتب رسالتك..."
-                autocomplete="off">
-
-            <button id="sendBtn">
-                إرسال 💗
-            </button>
-
-        </div>
-
-
-        <!-- أزرار الوسائط -->
-
-        <div class="media-buttons">
-
-            <button id="recordBtn">
-                🎤 تسجيل صوت
-            </button>
-
-            <button id="stopBtn" disabled>
-                ⏹️ إيقاف
-            </button>
-
-            <button id="callBtn">
-                📞 مكالمة
-            </button>
-
-            <button id="videoBtn">
-                📹 كاميرا
-            </button>
-
-        </div>
-
-
-        <p id="recordStatus"></p>
-
-
-        <!-- نافذة الكاميرا -->
-
-        <div id="videoBox" class="video-box">
-
-            <video
-                id="localVideo"
-                autoplay
-                playsinline>
-            </video>
-
-            <div class="video-controls">
-
-                <button id="startCameraBtn">
-                    📹 تشغيل الكاميرا
-                </button>
-
-                <button id="stopCameraBtn">
-                    ⛔ إيقاف الكاميرا
-                </button>
-
-            </div>
-
-            <p id="cameraStatus"></p>
-
-        </div>
+      </div>
 
     </div>
 
 
-<script>
+    <!-- حالة الخطأ -->
+
+    <div id="status"
+         class="status">
+    </div>
 
 
-/* =========================
-   الرسائل النصية
-========================= */
+    <!-- الرسائل -->
 
-const messageInput =
-    document.getElementById("messageInput");
+    <div
+      class="messages"
+      id="messages">
 
-const sendBtn =
-    document.getElementById("sendBtn");
+      <div class="empty-message"
+           id="emptyMessage">
 
-const messages =
-    document.getElementById("messages");
+        لا توجد رسائل بعد 💗
+        <br>
+        ابدئي المحادثة الآن
+
+      </div>
+
+    </div>
 
 
-function sendMessage() {
+    <!-- الكتابة -->
 
-    const text =
+    <div class="input-area">
+
+      <textarea
+        id="messageInput"
+        placeholder="اكتبي رسالتك..."
+        rows="1">
+      </textarea>
+
+      <button
+        id="sendBtn"
+        title="إرسال">
+
+        ➤
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    /* =========================
+       Firebase
+    ========================= */
+
+    import {
+      auth,
+      db
+    } from "./firebase-config.js";
+
+
+    import {
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      collection,
+      addDoc,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      serverTimestamp,
+      getDoc,
+      doc
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================
+       العناصر
+    ========================= */
+
+    const messagesDiv =
+      document.getElementById("messages");
+
+    const emptyMessage =
+      document.getElementById("emptyMessage");
+
+    const messageInput =
+      document.getElementById("messageInput");
+
+    const sendBtn =
+      document.getElementById("sendBtn");
+
+    const chatUserName =
+      document.getElementById("chatUserName");
+
+    const chatStatus =
+      document.getElementById("chatStatus");
+
+    const userAvatar =
+      document.getElementById("userAvatar");
+
+    const backBtn =
+      document.getElementById("backBtn");
+
+    const statusDiv =
+      document.getElementById("status");
+
+
+    /* =========================
+       الشخص الآخر
+    ========================= */
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const otherUserId =
+      urlParams.get("user");
+
+
+    let currentUser = null;
+
+    let unsubscribeMessages = null;
+
+
+    /* =========================
+       إظهار الحالة
+    ========================= */
+
+    function showStatus(message, type = "error") {
+
+      statusDiv.textContent = message;
+
+      statusDiv.className =
+        "status " + type;
+
+      setTimeout(() => {
+
+        statusDiv.className =
+          "status";
+
+      }, 4000);
+
+    }
+
+
+    /* =========================
+       الرجوع
+    ========================= */
+
+    backBtn.addEventListener(
+      "click",
+      () => {
+
+        if (document.referrer) {
+
+          history.back();
+
+        } else {
+
+          window.location.href =
+            "search.html";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       التحقق من تسجيل الدخول
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if (!user) {
+
+          showStatus(
+            "❌ لازم تسجلي الدخول أولاً"
+          );
+
+          setTimeout(() => {
+
+            window.location.href =
+              "login.html";
+
+          }, 1200);
+
+          return;
+        }
+
+
+        currentUser = user;
+
+
+        /* إذا لم يتم تحديد مستخدم */
+
+        if (!otherUserId) {
+
+          chatUserName.textContent =
+            "لا توجد محادثة";
+
+          chatStatus.textContent =
+            "اختاري شخصاً للمحادثة";
+
+          messageInput.disabled =
+            true;
+
+          sendBtn.disabled =
+            true;
+            return;
+
+        }
+
+
+        /* منع محادثة النفس */
+
+        if (otherUserId === currentUser.uid) {
+
+          chatUserName.textContent =
+            "المحادثة";
+
+          chatStatus.textContent =
+            "لا يمكنك مراسلة نفسك";
+
+          messageInput.disabled =
+            true;
+
+          sendBtn.disabled =
+            true;
+
+          return;
+
+        }
+
+
+        await loadOtherUser();
+
+        startMessagesListener();
+
+      }
+    );
+
+
+    /* =========================
+       تحميل بيانات المستخدم الآخر
+    ========================= */
+
+    async function loadOtherUser() {
+
+      try {
+
+        const userRef =
+          doc(
+            db,
+            "users",
+            otherUserId
+          );
+
+
+        const userSnapshot =
+          await getDoc(userRef);
+
+
+        if (userSnapshot.exists()) {
+
+          const data =
+            userSnapshot.data();
+
+
+          const name =
+            data.name ||
+            data.username ||
+            "مستخدم";
+
+
+          chatUserName.textContent =
+            name;
+
+
+          userAvatar.textContent =
+            name.charAt(0).toUpperCase();
+
+
+          chatStatus.textContent =
+            "متصل بالمحادثة 💗";
+
+        } else {
+
+          chatUserName.textContent =
+            "مستخدم";
+
+
+          chatStatus.textContent =
+            "المستخدم غير موجود";
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        chatUserName.textContent =
+          "مستخدم";
+
+        chatStatus.textContent =
+          "تعذر تحميل البيانات";
+
+      }
+
+    }
+
+
+    /* =========================
+       الاستماع للرسائل مباشرة
+    ========================= */
+
+    function startMessagesListener() {
+
+      if (unsubscribeMessages) {
+
+        unsubscribeMessages();
+
+      }
+
+
+      /*
+        نبحث عن الرسائل التي:
+
+        senderId = أنا
+        receiverId = الشخص الآخر
+
+        أو:
+
+        senderId = الشخص الآخر
+        receiverId = أنا
+      */
+
+
+      const messagesRef =
+        collection(
+          db,
+          "messages"
+        );
+
+
+      const q =
+        query(
+
+          messagesRef,
+
+          where(
+            "participants",
+            "array-contains",
+            currentUser.uid
+          ),
+
+          orderBy(
+            "createdAt",
+            "asc"
+          )
+
+        );
+
+
+      unsubscribeMessages =
+        onSnapshot(
+          q,
+          (snapshot) => {
+
+            messagesDiv.innerHTML = "";
+
+
+            let count = 0;
+
+
+            snapshot.forEach(
+              (messageDoc) => {
+
+                const data =
+                  messageDoc.data();
+
+
+                const isConversation =
+
+                  (
+                    data.senderId ===
+                    currentUser.uid
+
+                    &&
+                    
+                    data.receiverId ===
+                    otherUserId
+                  )
+
+                  ||
+
+                  (
+                    data.senderId ===
+                    otherUserId
+
+                    &&
+
+                    data.receiverId ===
+                    currentUser.uid
+                  );
+
+
+                if (!isConversation) {
+                  return;
+                }
+
+
+                count++;
+
+
+                displayMessage(
+                  data
+                );
+
+              }
+            );
+
+
+            if (count === 0) {
+
+              messagesDiv.appendChild(
+                emptyMessage
+              );
+
+              emptyMessage.style.display =
+                "block";
+
+            }
+
+
+            scrollToBottom();
+
+          },
+
+          (error) => {
+
+            console.error(error);
+
+            showStatus(
+              "❌ تعذر تحميل الرسائل"
+            );
+
+          }
+
+        );
+
+    }
+
+
+    /* =========================
+       عرض رسالة
+    ========================= */
+
+    function displayMessage(data) {
+
+      const row =
+        document.createElement("div");
+
+
+      const isMe =
+        data.senderId ===
+        currentUser.uid;
+
+
+      row.className =
+        "message-row " +
+        (isMe ? "me" : "other");
+        const message =
+        document.createElement("div");
+
+
+      message.className =
+        "message " +
+        (isMe ? "me" : "other");
+
+
+      const text =
+        document.createElement("div");
+
+
+      text.textContent =
+        data.text || "";
+
+
+      const time =
+        document.createElement("span");
+
+
+      time.className =
+        "message-time";
+
+
+      time.textContent =
+        formatTime(
+          data.createdAt
+        );
+
+
+      message.appendChild(text);
+
+      message.appendChild(time);
+
+      row.appendChild(message);
+
+      messagesDiv.appendChild(row);
+
+    }
+
+
+    /* =========================
+       الوقت
+    ========================= */
+
+    function formatTime(timestamp) {
+
+      if (!timestamp) {
+
+        return "";
+
+      }
+
+
+      const date =
+        timestamp.toDate();
+
+
+      return date.toLocaleTimeString(
+        "ar-DZ",
+        {
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
+    }
+
+
+    /* =========================
+       إرسال الرسالة
+    ========================= */
+
+    async function sendMessage() {
+
+      if (!currentUser) {
+
+        showStatus(
+          "❌ لازم تسجلي الدخول"
+        );
+
+        return;
+
+      }
+
+
+      if (!otherUserId) {
+
+        showStatus(
+          "❌ لم يتم تحديد المستخدم"
+        );
+
+        return;
+
+      }
+
+
+      const text =
         messageInput.value.trim();
 
-    if (text === "") {
+
+      if (!text) {
+
         return;
+
+      }
+
+
+      if (
+        otherUserId ===
+        currentUser.uid
+      ) {
+
+        showStatus(
+          "❌ لا يمكنك مراسلة نفسك"
+        );
+
+        return;
+
+      }
+
+
+      sendBtn.disabled =
+        true;
+
+
+      try {
+
+        await addDoc(
+
+          collection(
+            db,
+            "messages"
+          ),
+
+          {
+
+            senderId:
+              currentUser.uid,
+
+            receiverId:
+              otherUserId,
+
+            participants: [
+              currentUser.uid,
+              otherUserId
+            ],
+
+            text:
+              text,
+
+            createdAt:
+              serverTimestamp()
+
+          }
+
+        );
+
+
+        messageInput.value =
+          "";
+
+
+        messageInput.style.height =
+          "45px";
+
+
+        scrollToBottom();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          "❌ لم يتم إرسال الرسالة"
+        );
+
+      }
+
+
+      sendBtn.disabled =
+        false;
+
     }
 
 
-    const newMessage =
-        document.createElement("p");
-
-    newMessage.className =
-        "message sent";
-
-    newMessage.textContent =
-        text;
-
-
-    messages.appendChild(newMessage);
-
-
-    messageInput.value = "";
-
-
-    messages.scrollTop =
-        messages.scrollHeight;
-}
-
-
-sendBtn.addEventListener(
-    "click",
-    sendMessage
-);
-
-
-messageInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Enter") {
-
-            sendMessage();
-
-        }
-
-    }
-);
-
-
-
-/* =========================
-   تسجيل الصوت
-========================= */
-
-const recordBtn =
-    document.getElementById("recordBtn");
-
-const stopBtn =
-    document.getElementById("stopBtn");
-
-const recordStatus =
-    document.getElementById("recordStatus");
-
-
-let mediaRecorder;
-
-let audioChunks = [];
-
-
-recordBtn.addEventListener(
-    "click",
-    async function() {
-
-        try {
-
-            const stream =
-                await navigator.mediaDevices.getUserMedia({
-                    audio: true
-                });
-
-
-            audioChunks = [];
-
-
-            mediaRecorder =
-                new MediaRecorder(stream);
-
-
-            mediaRecorder.addEventListener(
-                "dataavailable",
-                function(event) {
-
-                    if (event.data.size > 0) {
-
-                        audioChunks.push(
-                            event.data
-                        );
-
-                    }
-
-                }
-            );
-
-
-            mediaRecorder.addEventListener(
-                "stop",
-                function() {
-
-                    const audioBlob =
-                        new Blob(
-                            audioChunks,
-                            {
-                                type: "audio/webm"
-                            }
-                        );
-
-
-                    const audioURL =
-                        URL.createObjectURL(
-                            audioBlob
-                        );
-
-
-                    const audio =
-                        document.createElement(
-                            "audio"
-                        );
-
-                    audio.controls = true;
-
-                    audio.src =
-                        audioURL;
-
-
-                    const audioMessage =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    audioMessage.className =
-                        "message sent audio-message";
-
-
-                    const title =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    title.textContent =
-                        "🎤 رسالة صوتية";
-
-
-                    audioMessage.appendChild(
-                        title
-                    );
-
-
-                    audioMessage.appendChild(
-                        audio
-                    );
-
-
-                    messages.appendChild(
-                        audioMessage
-                    );
-
-
-                    messages.scrollTop =
-                        messages.scrollHeight;
-
-
-                    recordStatus.textContent =
-                        "✅ تم تسجيل الرسالة الصوتية";
-
-
-                    stream
-                        .getTracks()
-                        .forEach(
-                            function(track) {
-
-                                track.stop();
-
-                            }
-                        );
-
-                }
-            );
-
-
-            mediaRecorder.start();
-
-
-            recordBtn.disabled =
-                true;
-
-            stopBtn.disabled =
-                false;
-
-
-            recordStatus.textContent =
-                "🔴 يتم التسجيل الآن...";
-
-        }
-
-        catch (error) {
-
-            recordStatus.textContent =
-                "❌ لم نتمكن من الوصول إلى الميكروفون";
-
-            console.log(error);
-
-        }
-
-    }
-);
-
-
-
-stopBtn.addEventListener(
-    "click",
-    function() {
+    /* =========================
+       زر الإرسال
+    ========================= */
+
+    sendBtn.addEventListener(
+      "click",
+      sendMessage
+    );
+
+
+    /* =========================
+       Enter للإرسال
+    ========================= */
+
+    messageInput.addEventListener(
+      "keydown",
+      (event) => {
 
         if (
-            mediaRecorder &&
-            mediaRecorder.state === "recording"
+          event.key === "Enter"
+          &&
+          !event.shiftKey
         ) {
 
-            mediaRecorder.stop();
+          event.preventDefault();
 
-            record
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       تكبير خانة الكتابة
+    ========================= */
+
+    messageInput.addEventListener(
+      "input",
+      () => {
+
+        messageInput.style.height =
+          "auto";
+
+
+        messageInput.style.height =
+          Math.min(
+            messageInput.scrollHeight,
+            120
+          ) + "px";
+
+      }
+    );
+
+
+    /* =========================
+       النزول لآخر رسالة
+    ========================= */
+
+    function scrollToBottom() {
+
+      setTimeout(() => {
+
+        messagesDiv.scrollTop =
+          messagesDiv.scrollHeight;
+
+      }, 100);
+
+    }
+
+  </script>
+
+</body>
+
+</html>
