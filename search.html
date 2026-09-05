@@ -1,101 +1,18 @@
-const likeSnapshot =
-                        await getDoc(
-                            likeRef
-                        );
+likeButton.addEventListener(
+            "click",
+            function() {
 
-
-
-                    /* إلغاء الإعجاب */
-
-                    if (
-                        likeSnapshot.exists()
-                    ) {
-
-                        await deleteDoc(
-                            likeRef
-                        );
-
-
-                        likeButton.classList.remove(
-                            "liked"
-                        );
-
-
-                        likeIcon.textContent =
-                            "❤️";
-
-
-                        likeText.textContent =
-                            "إعجاب";
-
-                    }
-
-
-
-                    /* إضافة الإعجاب */
-
-                    else {
-
-                        await setDoc(
-                            likeRef,
-                            {
-
-                                from:
-                                    currentUser.uid,
-
-                                to:
-                                    user.id,
-
-                                createdAt:
-                                    serverTimestamp()
-
-                            }
-                        );
-
-
-                        likeButton.classList.add(
-                            "liked"
-                        );
-
-
-                        likeIcon.textContent =
-                            "💗";
-
-
-                        likeText.textContent =
-                            "تم الإعجاب";
-
-                    }
-
-
-                } catch (error) {
-
-                    console.error(error);
-
-
-                    alert(
-                        "❌ حدث خطأ أثناء تسجيل الإعجاب"
-                    );
-
-                }
-
-
-                likeButton.disabled =
-                    false;
+                likeUser(
+                    user.id,
+                    likeButton
+                );
 
             }
         );
 
 
-
-        /* =========================
-           زر التواصل
-        ========================= */
-
         const contactButton =
-            card.querySelector(
-                ".contact-user"
-            );
+            card.querySelector(".contact-user");
 
 
         contactButton.addEventListener(
@@ -104,15 +21,13 @@ const likeSnapshot =
 
                 localStorage.setItem(
                     "chatUser",
-                    user.id
+                    userName
                 );
-
 
                 localStorage.setItem(
-                    "chatUserName",
-                    user.name
+                    "chatUserId",
+                    user.id
                 );
-
 
                 window.location.href =
                     "chat.html";
@@ -121,15 +36,77 @@ const likeSnapshot =
         );
 
 
-
         results.appendChild(card);
 
     }
 
 }
 
+
+// البحث
+
+function searchUsers() {
+
+    const gender =
+        searchGender.value;
+
+    const minimum =
+        Number(minAge.value) || 18;
+
+    const maximum =
+        Number(maxAge.value) || 100;
+
+    const wilaya =
+        searchWilaya.value;
+
+
+    const filtered =
+        users.filter(function(user) {
+
+            const userAge =
+                Number(user.age);
+
+
+            const genderMatch =
+                gender === "" ||
+                user.gender === gender;
+
+
+            const ageMatch =
+                userAge >= minimum &&
+                userAge <= maximum;
+
+
+            const wilayaMatch =
+                wilaya === "" ||
+                user.wilaya === wilaya;
+
+
+            return (
+                genderMatch &&
+                ageMatch &&
+                wilayaMatch
+            );
+
+        });
+
+
+    showUsers(filtered);
+
+}
+
+
+searchBtn.addEventListener(
+    "click",
+    searchUsers
+);
+
+
+// تشغيل التحميل
+
+loadUsers();
+
 </script>
 
 </body>
-
 </html>
