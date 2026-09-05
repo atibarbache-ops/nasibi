@@ -1,144 +1,173 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
-    <meta charset="UTF-8"><meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-<title>إنشاء حساب - نصيبي</title>
+<head>
 
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
 
-</head><body><div class="register"><h2>إنشاء حساب 💍</h2>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<input
-    type="text"
-    id="name"
-    placeholder="الاسم">
+    <title>إنشاء حساب - نصيبي</title>
 
-<label>تاريخ الميلاد</label>
+    <link rel="stylesheet" href="style.css">
 
-<input
-    type="date"
-    id="birthdate">
+</head>
 
-<p id="age"></p>
+<body>
 
-<label>الجنس</label>
+<div class="register">
 
-<select id="gender">
-    <option value="">اختر الجنس</option>
-    <option value="رجل">رجل</option>
-    <option value="امرأة">امرأة</option>
-</select>
+    <h2>إنشاء حساب 💍</h2>
 
-<label>الولاية</label>
 
-<select id="wilaya">
+    <input
+        type="text"
+        id="name"
+        placeholder="الاسم">
 
-    <option value="">اختر ولايتك</option>
 
-    <option>أدرار</option>
-    <option>الشلف</option>
-    <option>الأغواط</option>
-    <option>أم البواقي</option>
-    <option>باتنة</option>
-    <option>بجاية</option>
-    <option>بسكرة</option>
-    <option>بشار</option>
-    <option>البليدة</option>
-    <option>البويرة</option>
-    <option>تمنراست</option>
-    <option>تبسة</option>
-    <option>تلمسان</option>
-    <option>تيارت</option>
-    <option>تيزي وزو</option>
-    <option>الجزائر</option>
-    <option>الجلفة</option>
-    <option>جيجل</option>
-    <option>سطيف</option>
-    <option>سعيدة</option>
-    <option>سكيكدة</option>
-    <option>سيدي بلعباس</option>
-    <option>عنابة</option>
-    <option>قالمة</option>
-    <option>قسنطينة</option>
-    <option>المدية</option>
-    <option>مستغانم</option>
-    <option>المسيلة</option>
-    <option>معسكر</option>
-    <option>ورقلة</option>
-    <option>وهران</option>
-    <option>البيض</option>
-    <option>إليزي</option>
-    <option>برج بوعريريج</option>
-    <option>بومرداس</option>
-    <option>الطارف</option>
-    <option>تندوف</option>
-    <option>تيسمسيلت</option>
-    <option>الوادي</option>
-    <option>خنشلة</option>
-    <option>سوق أهراس</option>
-    <option>تيبازة</option>
-    <option>ميلة</option>
-    <option>عين الدفلى</option>
-    <option>النعامة</option>
-    <option>عين تموشنت</option>
-    <option>غرداية</option>
-    <option>غليزان</option>
-    <option>تيميمون</option>
-    <option>برج باجي مختار</option>
-    <option>أولاد جلال</option>
-    <option>بني عباس</option>
-    <option>عين صالح</option>
-    <option>عين قزام</option>
-    <option>تقرت</option>
-    <option>جانت</option>
-    <option>المغير</option>
-    <option>المنيعة</option>
+    <label>تاريخ الميلاد</label>
 
-</select>
+    <input
+        type="date"
+        id="birthdate">
 
-<input
-    type="text"
-    id="city"
-    placeholder="المدينة">
+    <p id="age"></p>
 
-<input
-    type="email"
-    id="email"
-    placeholder="البريد الإلكتروني">
 
-<input
-    type="password"
-    id="password"
-    placeholder="كلمة السر">
+    <label>الجنس</label>
 
-<label>نبذة عنك</label>
+    <select id="gender">
 
-<textarea
-    id="bio"
-    placeholder="اكتب نبذة قصيرة عن نفسك..."
-    rows="5"></textarea>
+        <option value="">اختر الجنس</option>
 
-<label>صورتك الشخصية</label>
+        <option value="رجل">رجل</option>
 
-<input
-    type="file"
-    id="profilePhoto"
-    accept="image/*">
+        <option value="امرأة">امرأة</option>
 
-<button
-    id="createAccount"
-    type="button"
-    disabled>
+    </select>
 
-    إنشاء الحساب 💗
 
-</button>
+    <label>الولاية</label>
 
-</div><script type="module">
+    <select id="wilaya">
 
-/* =========================
-   Firebase
-========================= */
+        <option value="">اختر ولايتك</option>
+
+        <option>أدرار</option>
+        <option>الشلف</option>
+        <option>الأغواط</option>
+        <option>أم البواقي</option>
+        <option>باتنة</option>
+        <option>بجاية</option>
+        <option>بسكرة</option>
+        <option>بشار</option>
+        <option>البليدة</option>
+        <option>البويرة</option>
+        <option>تمنراست</option>
+        <option>تبسة</option>
+        <option>تلمسان</option>
+        <option>تيارت</option>
+        <option>تيزي وزو</option>
+        <option>الجزائر</option>
+        <option>الجلفة</option>
+        <option>جيجل</option>
+        <option>سطيف</option>
+        <option>سعيدة</option>
+        <option>سكيكدة</option>
+        <option>سيدي بلعباس</option>
+        <option>عنابة</option>
+        <option>قالمة</option>
+        <option>قسنطينة</option>
+        <option>المدية</option>
+        <option>مستغانم</option>
+        <option>المسيلة</option>
+        <option>معسكر</option>
+        <option>ورقلة</option>
+        <option>وهران</option>
+        <option>البيض</option>
+        <option>إليزي</option>
+        <option>برج بوعريريج</option>
+        <option>بومرداس</option>
+        <option>الطارف</option>
+        <option>تندوف</option>
+        <option>تيسمسيلت</option>
+        <option>الوادي</option>
+        <option>خنشلة</option>
+        <option>سوق أهراس</option>
+        <option>تيبازة</option>
+        <option>ميلة</option>
+        <option>عين الدفلى</option>
+        <option>النعامة</option>
+        <option>عين تموشنت</option>
+        <option>غرداية</option>
+        <option>غليزان</option>
+        <option>تيميمون</option>
+        <option>برج باجي مختار</option>
+        <option>أولاد جلال</option>
+        <option>بني عباس</option>
+        <option>عين صالح</option>
+        <option>عين قزام</option>
+        <option>تقرت</option>
+        <option>جانت</option>
+        <option>المغير</option>
+        <option>المنيعة</option>
+
+    </select>
+
+
+    <input
+        type="text"
+        id="city"
+        placeholder="المدينة">
+
+
+    <input
+        type="email"
+        id="email"
+        placeholder="البريد الإلكتروني">
+
+
+    <input
+        type="password"
+        id="password"
+        placeholder="كلمة السر">
+
+
+    <label>نبذة عنك</label>
+
+    <textarea
+        id="bio"
+        placeholder="اكتب نبذة قصيرة عن نفسك..."
+        rows="5"></textarea>
+
+
+    <label>صورتك الشخصية</label>
+
+    <input
+        type="file"
+        id="profilePhoto"
+        accept="image/*">
+
+
+    <button
+        id="createAccount"
+        type="button"
+        disabled>
+
+        إنشاء الحساب 💗
+
+    </button>
+
+</div>
+
+
+<script type="module">
+
+/* ==================================================
+   FIREBASE
+================================================== */
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -156,13 +185,7 @@ const firebaseConfig = {
 
     authDomain: "nassibi-f7c52.firebaseapp.com",
 
-    projectId: "nassibi-f7c52",
-
-    storageBucket: "nassibi-f7c52.appspot.com",
-
-    messagingSenderId: "ضع_القيمة_الخاصة_بمشروعك",
-
-    appId: "ضع_القيمة_الخاصة_بمشروعك"
+    projectId: "nassibi-f7c52"
 
 };
 
@@ -172,9 +195,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 
-/* =========================
+/* ==================================================
    العناصر
-========================= */
+================================================== */
 
 const nameInput =
     document.getElementById("name");
@@ -213,36 +236,57 @@ const createAccount =
 let userAge = 0;
 
 
-/* =========================
+/* ==================================================
    حساب العمر
-========================= */
+================================================== */
 
 birthdate.addEventListener(
     "change",
     function () {
 
+        if (!this.value) {
+
+            userAge = 0;
+
+            age.textContent = "";
+
+            createAccount.disabled = true;
+
+            return;
+        }
+
+
         const today = new Date();
 
         const birth = new Date(this.value);
 
+
         let years =
             today.getFullYear()
-            - birth.getFullYear();
+            -
+            birth.getFullYear();
+
 
         const month =
             today.getMonth()
-            - birth.getMonth();
+            -
+            birth.getMonth();
+
 
         if (
             month < 0 ||
             (
                 month === 0 &&
                 today.getDate()
-                < birth.getDate()
+                <
+                birth.getDate()
             )
         ) {
+
             years--;
+
         }
+
 
         userAge = years;
 
@@ -251,8 +295,10 @@ birthdate.addEventListener(
 
             age.textContent =
                 "✅ عمرك: "
-                + years
-                + " سنة";
+                +
+                years
+                +
+                " سنة";
 
             age.style.color = "green";
 
@@ -273,45 +319,56 @@ birthdate.addEventListener(
 );
 
 
-/* =========================
-   الصورة
-========================= */
+/* ==================================================
+   الصورة الشخصية
+================================================== */
 
 profilePhoto.addEventListener(
     "change",
     function () {
 
-        const file = this.files[0];
+        const file =
+            this.files[0];
 
-        if (file) {
 
-            const reader =
-                new FileReader();
+        if (!file) {
 
-            reader.onload =
-                function (event) {
+            return;
 
-                    localStorage.setItem(
-                        "userPhoto",
-                        event.target.result
-                    );
-
-                };
-
-            reader.readAsDataURL(file);
         }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function (event) {
+
+                localStorage.setItem(
+                    "userPhoto",
+                    event.target.result
+                );
+
+            };
+
+
+        reader.readAsDataURL(file);
 
     }
 );
 
 
-/* =========================
+/* ==================================================
    إنشاء الحساب
-========================= */
+================================================== */
 
 createAccount.addEventListener(
     "click",
     async function () {
+
+
+        /* التأكد من العمر */
 
         if (userAge < 18) {
 
@@ -320,14 +377,21 @@ createAccount.addEventListener(
             );
 
             return;
+
         }
 
 
+        /* التأكد من المعلومات */
+
         if (
-            nameInput.value.trim() === "" ||
-            gender.value === "" ||
-            wilaya.value === "" ||
-            email.value.trim() === "" ||
+            nameInput.value.trim() === ""
+            ||
+            gender.value === ""
+            ||
+            wilaya.value === ""
+            ||
+            email.value.trim() === ""
+            ||
             password.value === ""
         ) {
 
@@ -336,8 +400,11 @@ createAccount.addEventListener(
             );
 
             return;
+
         }
 
+
+        /* كلمة السر */
 
         if (password.value.length < 6) {
 
@@ -346,8 +413,11 @@ createAccount.addEventListener(
             );
 
             return;
+
         }
 
+
+        /* تعطيل الزر أثناء التسجيل */
 
         createAccount.disabled = true;
 
@@ -356,6 +426,9 @@ createAccount.addEventListener(
 
 
         try {
+
+
+            /* إنشاء الحساب في Firebase */
 
             const userCredential =
                 await createUserWithEmailAndPassword(
@@ -369,53 +442,67 @@ createAccount.addEventListener(
                 userCredential.user;
 
 
-            /* حفظ معلومات المستخدم */
+            /* ==================================================
+               حفظ معلومات المستخدم
+            ================================================== */
 
             localStorage.setItem(
                 "userId",
                 user.uid
             );
 
+
             localStorage.setItem(
                 "userName",
                 nameInput.value.trim()
             );
+
 
             localStorage.setItem(
                 "userAge",
                 userAge
             );
 
+
             localStorage.setItem(
                 "userGender",
                 gender.value
             );
+
 
             localStorage.setItem(
                 "userWilaya",
                 wilaya.value
             );
 
+
             localStorage.setItem(
                 "userCity",
                 city.value.trim()
             );
+
 
             localStorage.setItem(
                 "userEmail",
                 email.value.trim()
             );
 
+
             localStorage.setItem(
                 "userBio",
                 bio.value.trim()
             );
+
 
             localStorage.setItem(
                 "isLoggedIn",
                 "true"
             );
 
+
+            /* ==================================================
+               نجاح
+            ================================================== */
 
             alert(
                 "💗 تم إنشاء حسابك بنجاح!"
@@ -426,9 +513,16 @@ createAccount.addEventListener(
                 "profile.html";
 
 
-        } catch (error) {
+        }
 
-            console.error(error);
+
+        catch (error) {
+
+
+            console.error(
+                "Firebase Error:",
+                error
+            );
 
 
             createAccount.disabled = false;
@@ -436,6 +530,8 @@ createAccount.addEventListener(
             createAccount.textContent =
                 "إنشاء الحساب 💗";
 
+
+            /* البريد مستعمل */
 
             if (
                 error.code ===
@@ -446,7 +542,12 @@ createAccount.addEventListener(
                     "❌ هذا البريد الإلكتروني مستعمل من قبل"
                 );
 
-            } else if (
+            }
+
+
+            /* البريد غير صحيح */
+
+            else if (
                 error.code ===
                 "auth/invalid-email"
             ) {
@@ -455,7 +556,12 @@ createAccount.addEventListener(
                     "❌ البريد الإلكتروني غير صحيح"
                 );
 
-            } else if (
+            }
+
+
+            /* كلمة السر ضعيفة */
+
+            else if (
                 error.code ===
                 "auth/weak-password"
             ) {
@@ -464,20 +570,49 @@ createAccount.addEventListener(
                     "❌ كلمة السر ضعيفة، لازم تكون 6 أحرف على الأقل"
                 );
 
-            } else if (
+            }
+
+
+            /* Email/Password غير مفعّل */
+
+            else if (
                 error.code ===
                 "auth/operation-not-allowed"
             ) {
 
                 alert(
-                    "❌ لازم تفعّل Email/Password من Firebase Authentication"
+                    "❌ لازم تفعّلي Email/Password من Firebase Authentication"
                 );
 
-            } else {
+            }
+
+
+            /* مشكلة اتصال */
+
+            else if (
+                error.code ===
+                "auth/network-request-failed"
+            ) {
 
                 alert(
-                    "❌ حدث خطأ أثناء إنشاء الحساب:\n"
-                    + error.message
+                    "❌ تعذر الاتصال بـ Firebase.\n\nتأكدي من اتصال الإنترنت وحاولي مرة أخرى."
+                );
+
+            }
+
+
+            /* خطأ آخر */
+
+            else {
+
+                alert(
+                    "❌ حدث خطأ في Firebase:\n\n"
+                    +
+                    error.code
+                    +
+                    "\n\n"
+                    +
+                    error.message
                 );
 
             }
@@ -487,4 +622,8 @@ createAccount.addEventListener(
     }
 );
 
-</script></body></html>
+</script>
+
+</body>
+
+</html>
