@@ -2,73 +2,1452 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  <title>نصيبي 💍 | البحث عن شريك الحياة</title>
 
-    <title>نصيبي 💍</title>
+  <style>
 
-    <link rel="stylesheet" href="style.css">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+
+    /* =========================
+       الخلفية
+    ========================= */
+
+    body {
+      min-height: 100vh;
+      color: #4b302b;
+
+      background:
+        linear-gradient(
+          rgba(239, 220, 202, 0.80),
+          rgba(250, 239, 226, 0.92)
+        ),
+        url("couple.jpg") center center / cover fixed no-repeat;
+
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* قلوب الخلفية */
+
+    body::before {
+      content:
+        "♡  ♥  ♡  💗  ♡  ♥  ♡  💕  ♡  ♥  ♡  💗  ♡  ♥  ♡  💕";
+
+      position: fixed;
+      inset: 0;
+
+      font-size: 32px;
+      line-height: 2.8;
+      letter-spacing: 25px;
+
+      color: rgba(154, 91, 87, 0.18);
+
+      pointer-events: none;
+      z-index: 0;
+
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* قلوب إضافية */
+
+    .heart {
+      position: fixed;
+      color: rgba(155, 91, 87, 0.28);
+      font-size: 25px;
+      animation: floatHeart 6s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart1 {
+      top: 12%;
+      right: 5%;
+    }
+
+    .heart2 {
+      top: 30%;
+      left: 5%;
+      animation-delay: 1s;
+    }
+
+    .heart3 {
+      top: 55%;
+      right: 8%;
+      animation-delay: 2s;
+    }
+
+    .heart4 {
+      top: 75%;
+      left: 8%;
+      animation-delay: 3s;
+    }
+
+    .heart5 {
+      top: 90%;
+      right: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatHeart {
+
+      0%,100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(8deg);
+      }
+
+    }
+
+    /* =========================
+       الشريط العلوي
+    ========================= */
+
+    header {
+
+      background: rgba(250, 239, 226, 0.95);
+
+      backdrop-filter: blur(12px);
+
+      box-shadow:
+        0 3px 20px rgba(91, 62, 45, 0.15);
+
+      padding: 18px 7%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      border-bottom:
+        1px solid rgba(170, 125, 100, 0.20);
+    }
+
+    .logo {
+
+      font-size: 29px;
+      font-weight: bold;
+
+      color: #805044;
+
+      text-shadow:
+        0 2px 8px rgba(120, 70, 55, 0.12);
+    }
+
+    .logo span {
+      color: #b87575;
+    }
+
+    .header-text {
+
+      color: #80665a;
+      font-size: 14px;
+    }
+
+    /* =========================
+       المحتوى
+    ========================= */
+
+    .container {
+
+      width: 92%;
+      max-width: 1100px;
+
+      margin: 38px auto;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    /* =========================
+       المقدمة
+    ========================= */
+
+    .hero {
+
+      text-align: center;
+
+      background:
+        rgba(250, 239, 226, 0.82);
+
+      backdrop-filter: blur(8px);
+
+      padding: 35px 20px;
+
+      border-radius: 28px;
+
+      margin-bottom: 28px;
+
+      box-shadow:
+        0 8px 30px rgba(91, 62, 45, 0.12);
+
+      border:
+        1px solid rgba(177, 135, 105, 0.18);
+    }
+
+    .hero h1 {
+
+      font-size: 36px;
+
+      color: #704b3f;
+
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+
+      color: #80665a;
+
+      font-size: 16px;
+
+      line-height: 1.8;
+    }
+
+    /* =========================
+       البطاقات
+    ========================= */
+
+    .card {
+
+      background:
+        rgba(255, 248, 240, 0.94);
+
+      backdrop-filter: blur(9px);
+
+      border-radius: 24px;
+
+      padding: 28px;
+
+      margin-bottom: 25px;
+
+      box-shadow:
+        0 8px 30px rgba(91, 62, 45, 0.14);
+
+      border:
+        1px solid rgba(177, 135, 105, 0.20);
+    }
+
+    .section-title {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      color: #7b5045;
+
+      font-size: 22px;
+
+      margin-bottom: 22px;
+    }
+
+    .section-title small {
+
+      font-size: 13px;
+
+      color: #9b817b;
+
+      font-weight: normal;
+    }
+
+    /* =========================
+       الشبكة
+    ========================= */
+
+    .grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 18px;
+    }
+
+    .field {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 8px;
+    }
+
+    .field.full {
+
+      grid-column: 1 / -1;
+    }
+
+    label {
+
+      font-weight: bold;
+
+      font-size: 14px;
+
+      color: #644640;
+    }
+
+    input,
+    select,
+    textarea {
+
+      width: 100%;
+
+      padding: 14px 15px;
+
+      border-radius: 13px;
+
+      border:
+        1px solid #dec9c2;
+
+      background:
+        rgba(255,255,255,0.78);
+
+      color: #4e3732;
+
+      outline: none;
+
+      font-size: 14px;
+
+      transition: 0.25s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+
+      border-color: #b87575;
+
+      box-shadow:
+        0 0 0 3px rgba(184,117,117,0.12);
+    }
+
+    textarea {
+
+      resize: vertical;
+
+      min-height: 120px;
+    }
+
+    /* =========================
+       الاختيارات
+    ========================= */
+
+    .choices {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+    }
+
+    .choice {
+
+      position: relative;
+    }
+
+    .choice input {
+
+      display: none;
+    }
+
+    .choice label {
+
+      display: block;
+
+      padding: 11px 17px;
+
+      border-radius: 30px;
+
+      background:
+        #f4e6d9;
+
+      border:
+        1px solid #e3cec0;
+
+      cursor: pointer;
+
+      transition: 0.25s;
+
+      font-weight: normal;
+    }
+
+    .choice input:checked + label {
+
+      background:
+        linear-gradient(
+          135deg,
+          #a87562,
+          #c58a7c
+        );
+
+      color: white;
+
+      border-color: #a87562;
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 5px 12px
+        rgba(140, 88, 70, 0.18);
+    }
+
+    /* =========================
+       الخصوصية
+    ========================= */
+
+    .privacy {
+
+      background:
+        rgba(250, 239, 226, 0.9);
+
+      border-right:
+        4px solid #bd9170;
+
+      padding: 16px;
+
+      border-radius: 12px;
+
+      color: #765b45;
+
+      font-size: 13px;
+
+      line-height: 1.9;
+    }
+
+    /* =========================
+       زر البحث
+    ========================= */
+
+    .search-area {
+
+      text-align: center;
+    }
+
+    .search-btn {
+
+      border: none;
+
+      padding: 17px 42px;
+
+      border-radius: 35px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #9f6658,
+          #c28b73
+        );
+
+      color: white;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 20px
+        rgba(130, 88, 68, 0.25);
+
+      transition: 0.25s;
+    }
+
+    .search-btn:hover {
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 12px 25px
+        rgba(130, 88, 68, 0.32);
+    }
+
+    #message {
+
+      text-align: center;
+
+      margin-top: 18px;
+
+      color: #8a5a53;
+
+      font-weight: bold;
+    }
+
+    /* =========================
+       النتائج
+    ========================= */
+
+    #results {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(260px, 1fr)
+        );
+
+      gap: 20px;
+
+      margin-top: 20px;
+    }
+
+    .profile {
+
+      background:
+        rgba(255,255,255,0.94);
+
+      border-radius: 22px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 8px 25px
+        rgba(70,40,35,0.10);
+
+      border:
+        1px solid #eadbd2;
+    }
+
+    .profile-top {
+
+      padding: 25px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0ded0,
+          #f5e9dc
+        );
+    }
+
+    .avatar {
+
+      width: 90px;
+      height: 90px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background: #fff;
+
+      font-size: 40px;
+
+      border:
+        4px solid white;
+
+      box-shadow:
+        0 4px 15px
+        rgba(0,0,0,0.08);
+    }
+
+    .profile-body {
+
+      padding: 20px;
+    }
+
+    .profile-body h3 {
+
+      color: #6d4148;
+
+      margin-bottom: 8px;
+    }
+
+    .profile-info {
+
+      color: #78615b;
+
+      font-size: 14px;
+
+      line-height: 1.9;
+    }
+
+    .profile-buttons {
+
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 15px;
+    }
+
+    .profile-buttons button {
+
+      flex: 1;
+
+      border: none;
+
+      padding: 11px;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+      transition: 0.2s;
+    }
+
+    .profile-buttons button:hover {
+
+      transform:
+        translateY(-2px);
+    }
+
+    .like {
+
+      background:
+        #f0d4d5;
+
+      color:
+        #914b5a;
+    }
+
+    .contact {
+
+      background:
+        #eadbcf;
+
+      color:
+        #6c4d42;
+    }
+
+    /* =========================
+       الهاتف
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      header {
+
+        padding:
+          15px 5%;
+      }
+
+      .logo {
+
+        font-size: 23px;
+      }
+
+      .header-text {
+
+        display: none;
+      }
+
+      .hero h1 {
+
+        font-size: 27px;
+      }
+
+      .grid {
+
+        grid-template-columns:
+          1fr;
+      }
+
+      .field.full {
+
+        grid-column: auto;
+      }
+
+      .card {
+
+        padding: 20px;
+
+        border-radius: 19px;
+      }
+
+      .section-title {
+
+        font-size: 19px;
+
+        flex-wrap: wrap;
+      }
+
+      .search-btn {
+
+        width: 100%;
+      }
+
+      body::before {
+
+        font-size: 23px;
+
+        letter-spacing: 12px;
+      }
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-    <div class="hero">
+  <!-- قلوب إضافية -->
 
-        <h1>نصيبي 💍</h1>
-
-        <p>
-            ابحث عن شريك حياة يشاركك القيم والأحلام.
-        </p>
-
-        <p>
-            💗 تعارف جاد ومحترم بهدف بناء حياة مستقرة 💗
-        </p>
+  <div class="heart heart1">💗</div>
+  <div class="heart heart2">♡</div>
+  <div class="heart heart3">💕</div>
+  <div class="heart heart4">♥</div>
+  <div class="heart heart5">💗</div>
 
 
-        <!-- إنشاء حساب -->
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-        <a href="register.html">
+  <header>
 
-            <button>
-                📝 إنشاء حساب
-            </button>
-
-        </a>
-
-
-        <!-- تسجيل الدخول -->
-
-        <a href="login.html">
-
-            <button>
-                🔐 تسجيل الدخول
-            </button>
-
-        </a>
-
-
-        <!-- البحث -->
-
-        <a href="search.html">
-
-            <button>
-                🔎 البحث عن شريك
-            </button>
-
-        </a>
-
+    <div class="logo">
+      نصيبي <span>💍</span>
     </div>
 
+    <div class="header-text">
+      تعارف جاد ومحترم بهدف الزواج 🤍
+    </div>
 
-    <script>
+  </header>
 
-        console.log(
-            "💍 مرحبًا بك في نصيبي"
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <main class="container">
+
+
+    <!-- المقدمة -->
+
+    <section class="hero">
+
+      <h1>
+        💍 ابحث عن شريك حياتك 💗
+      </h1>
+
+      <p>
+        لأن اختيار شريك الحياة يحتاج إلى معرفة وتوافق،
+        حدد المواصفات التي تهمك وابحث عن الشخص المناسب.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         معايير البحث
+    ========================= -->
+
+    <section class="card">
+
+      <h2 class="section-title">
+
+        🔎 معايير البحث
+
+        <small>
+          حدد المواصفات التي تهمك
+        </small>
+
+      </h2>
+
+
+      <div class="grid">
+
+
+        <div class="field">
+
+          <label>
+            أبحث عن
+          </label>
+
+          <select id="searchGender">
+
+            <option value="">
+              الكل
+            </option>
+
+            <option value="رجل">
+              رجل
+            </option>
+
+            <option value="امرأة">
+              امرأة
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            الولاية
+          </label>
+
+          <select id="searchWilaya">
+
+            <option value="">
+              كل الولايات
+            </option>
+
+            <option>أدرار</option>
+            <option>الشلف</option>
+            <option>الأغواط</option>
+            <option>أم البواقي</option>
+            <option>باتنة</option>
+            <option>بجاية</option>
+            <option>بسكرة</option>
+            <option>بشار</option>
+            <option>البليدة</option>
+            <option>البويرة</option>
+            <option>تمنراست</option>
+            <option>تبسة</option>
+            <option>تلمسان</option>
+            <option>تيارت</option>
+            <option>تيزي وزو</option>
+            <option>الجزائر</option>
+            <option>جيجل</option>
+            <option>سطيف</option>
+            <option>سعيدة</option>
+            <option>سكيكدة</option>
+            <option>سيدي بلعباس</option>
+            <option>عنابة</option>
+            <option>قالمة</option>
+            <option>قسنطينة</option>
+            <option>المدية</option>
+            <option>مستغانم</option>
+            <option>المسيلة</option>
+            <option>معسكر</option>
+            <option>ورقلة</option>
+            <option>وهران</option>
+            <option>البيض</option>
+            <option>برج بوعريريج</option>
+            <option>بومرداس</option>
+            <option>الطارف</option>
+            <option>تندوف</option>
+            <option>تيسمسيلت</option>
+            <option>الوادي</option>
+            <option>خنشلة</option>
+            <option>سوق أهراس</option>
+            <option>تيبازة</option>
+            <option>ميلة</option>
+            <option>عين الدفلى</option>
+            <option>النعامة</option>
+            <option>عين تموشنت</option>
+            <option>غرداية</option>
+            <option>غليزان</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            العمر الأدنى
+          </label>
+
+          <input
+            id="minAge"
+            type="number"
+            min="18"
+            max="100"
+            placeholder="مثلاً 23"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            العمر الأقصى
+          </label>
+
+          <input
+            id="maxAge"
+            type="number"
+            min="18"
+            max="100"
+            placeholder="مثلاً 35"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            الحالة الاجتماعية
+          </label>
+
+          <div class="choices">
+
+            <div class="choice">
+
+              <input
+                type="checkbox"
+                id="single"
+              >
+
+              <label for="single">
+                أعزب/عزباء
+              </label>
+
+            </div>
+
+
+            <div class="choice">
+
+              <input
+                type="checkbox"
+                id="divorced"
+              >
+
+              <label for="divorced">
+                مطلق/مطلقة
+              </label>
+
+            </div>
+
+
+            <div class="choice">
+
+              <input
+                type="checkbox"
+                id="widowed"
+              >
+
+              <label for="widowed">
+                أرمل/أرملة
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            وجود أطفال
+          </label>
+
+          <div class="choices">
+
+            <div class="choice">
+
+              <input
+                type="radio"
+                name="children"
+                id="childrenYes"
+              >
+
+              <label for="childrenYes">
+                نعم
+              </label>
+
+            </div>
+
+
+            <div class="choice">
+
+              <input
+                type="radio"
+                name="children"
+                id="childrenNo"
+              >
+
+              <label for="childrenNo">
+                لا
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         الصفات
+    ========================= -->
+
+    <section class="card">
+
+      <h2 class="section-title">
+
+        💗 الصفات المهمة
+
+        <small>
+          اختر الصفات التي تبحث عنها
+        </small>
+
+      </h2>
+
+
+      <div class="choices">
+
+
+        <div class="choice">
+          <input type="checkbox" id="kind">
+          <label for="kind">حنون/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="respect">
+          <label for="respect">محترم/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="responsible">
+          <label for="responsible">مسؤول/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="honest">
+          <label for="honest">صريح/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="calm">
+          <label for="calm">هادئ/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="social">
+          <label for="social">اجتماعي/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="ambitious">
+          <label for="ambitious">طموح/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="family">
+          <label for="family">يحب العائلة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="loyal">
+          <label for="loyal">وفي/ة</label>
+        </div>
+
+
+        <div class="choice">
+          <input type="checkbox" id="understanding">
+          <label for="understanding">متفهم/ة</label>
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         هدف الزواج
+    ========================= -->
+
+    <section class="card">
+
+      <h2 class="section-title">
+
+        💍 هدف الزواج
+
+        <small>
+          معلومات تساعد على التوافق
+        </small>
+
+      </h2>
+
+
+      <div class="grid">
+
+
+        <div class="field">
+
+          <label>
+            الهدف من التسجيل
+          </label>
+
+          <select id="marriageGoal">
+
+            <option value="">
+              اختر
+            </option>
+
+            <option>
+              الزواج الجاد
+            </option>
+
+            <option>
+              التعارف بنية الزواج
+            </option>
+
+            <option>
+              البحث عن شريك مناسب
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            الاستعداد للزواج
+          </label>
+
+          <select id="marriageReady">
+
+            <option value="">
+              اختر
+            </option>
+
+            <option>
+              جاهز/ة حاليًا
+            </option>
+
+            <option>
+              خلال سنة
+            </option>
+
+            <option>
+              خلال سنتين
+            </option>
+
+            <option>
+              غير محدد
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>
+            ما الذي تبحث عنه في شريك حياتك؟
+          </label>
+
+          <textarea
+            id="partnerDescription"
+            placeholder="اكتب الصفات والأمور المهمة بالنسبة لك..."
+          ></textarea>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         الخصوصية
+    ========================= -->
+
+    <section class="card">
+
+      <div class="privacy">
+
+        🔐
+        <strong>
+          الخصوصية مهمة:
+        </strong>
+
+        لا تضع معلومات حساسة مثل كلمة المرور،
+        رقم بطاقة التعريف، المعلومات البنكية
+        أو عنوان المنزل في وصفك الشخصي.
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         البحث
+    ========================= -->
+
+    <section class="card search-area">
+
+      <button
+        class="search-btn"
+        onclick="searchProfiles()"
+      >
+
+        🔎
+        البحث عن أشخاص مناسبين
+
+      </button>
+
+
+      <div id="message"></div>
+
+    </section>
+
+
+    <!-- =========================
+         النتائج
+    ========================= -->
+
+    <section class="card">
+
+      <h2 class="section-title">
+
+        💞 النتائج
+
+      </h2>
+
+
+      <div id="results">
+
+        <p
+          style="
+            text-align:center;
+            width:100%;
+            color:#90766f;
+          "
+        >
+
+          حدد معايير البحث ثم اضغط على زر البحث 💗
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    function searchProfiles() {
+
+      const gender =
+        document.getElementById(
+          "searchGender"
+        ).value;
+
+
+      const wilaya =
+        document.getElementById(
+          "searchWilaya"
+        ).value;
+
+
+      const minAge =
+        document.getElementById(
+          "minAge"
+        ).value;
+
+
+      const maxAge =
+        document.getElementById(
+          "maxAge"
+        ).value;
+
+
+      const results =
+        document.getElementById(
+          "results"
         );
 
-    </script>
+
+      const message =
+        document.getElementById(
+          "message"
+        );
+
+
+      /* التأكد من العمر */
+
+      if (
+        minAge &&
+        maxAge &&
+        Number(minAge) > Number(maxAge)
+      ) {
+
+        message.textContent =
+          "⚠️ العمر الأدنى لا يمكن أن يكون أكبر من العمر الأقصى.";
+
+        return;
+      }
+
+
+      message.textContent =
+        "🔎 جاري البحث...";
+
+
+      results.innerHTML = "";
+
+
+      setTimeout(() => {
+
+
+        message.textContent =
+          "💗 تم تطبيق معايير البحث.";
+
+
+        results.innerHTML = `
+
+          <div class="profile">
+
+            <div class="profile-top">
+
+              <div class="avatar">
+                👤
+              </div>
+
+            </div>
+
+
+            <div class="profile-body">
+
+              <h3>
+                مثال على الملف الشخصي
+              </h3>
+
+
+              <div class="profile-info">
+
+                📍 الولاية:
+                ${wilaya || "غير محددة"}
+
+                <br>
+
+                🎂 العمر:
+                ${minAge || "18"}
+                -
+                ${maxAge || "40"}
+
+                <br>
+
+                💍 الهدف:
+                الزواج الجاد
+
+                <br>
+
+                💗 التعارف:
+                بنية الزواج
+
+              </div>
+
+
+              <div class="profile-buttons">
+
+
+                <button
+                  class="like"
+                  onclick="likeProfile(this)"
+                >
+
+                  ❤️ إعجاب
+
+                </button>
+
+
+                <button
+                  class="contact"
+                  onclick="contactProfile()"
+                >
+
+                  💬 تواصل
+
+                </button>
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }, 700);
+
+    }
+
+
+    /* الإعجاب */
+
+    function likeProfile(button) {
+
+      button.textContent =
+        "💗 تم الإعجاب";
+
+      button.style.background =
+        "#b87575";
+
+      button.style.color =
+        "white";
+
+    }
+
+
+    /* التواصل */
+
+    function contactProfile() {
+
+      alert(
+        "💬 ميزة التواصل سنربطها لاحقًا بنظام المحادثة."
+      );
+
+    }
+
+  </script>
 
 </body>
 
