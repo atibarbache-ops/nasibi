@@ -1,907 +1,1631 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>نصيبي 💍</title>
+    <title>نصيبي 💍</title>
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Tahoma, Arial, sans-serif;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Tahoma, sans-serif;
+        }
 
-body {
-    min-height: 100vh;
-    background:
-        linear-gradient(rgba(245,232,215,.88), rgba(239,218,199,.94)),
-        url("couple.jpg") center/cover fixed;
-    overflow: hidden;
-    color: #513a32;
-}
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(245, 226, 199, 0.86), rgba(245, 226, 199, 0.92)),
+                url("couple.jpg") center/cover fixed;
+            color: #5a3b32;
+        }
 
-/* قلوب الخلفية */
-.bg-heart {
-    position: fixed;
-    color: rgba(151,91,86,.20);
-    font-size: 25px;
-    pointer-events: none;
-    animation: float 5s ease-in-out infinite;
-}
+        /* =========================
+           القلوب
+        ========================= */
 
-.h1 { top: 12%; left: 8%; }
-.h2 { top: 25%; right: 7%; animation-delay: 1s; }
-.h3 { bottom: 20%; left: 10%; animation-delay: 2s; }
-.h4 { bottom: 12%; right: 8%; animation-delay: 3s; }
-.h5 { top: 50%; left: 3%; animation-delay: 1.5s; }
+        .heart {
+            position: fixed;
+            color: #d98b9a;
+            opacity: 0.45;
+            font-size: 25px;
+            animation: floatHeart 8s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-@keyframes float {
-    0%,100% {
-        transform: translateY(0) rotate(0);
-    }
+        .h1 { right: 5%; animation-delay: 0s; }
+        .h2 { right: 25%; animation-delay: 2s; }
+        .h3 { right: 50%; animation-delay: 4s; }
+        .h4 { right: 75%; animation-delay: 1s; }
+        .h5 { right: 90%; animation-delay: 5s; }
 
-    50% {
-        transform: translateY(-18px) rotate(8deg);
-    }
-}
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(110vh) rotate(0);
+            }
 
-/* الهيدر */
-header {
-    height: 75px;
-    background: rgba(255,248,239,.90);
-    backdrop-filter: blur(12px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 7%;
-    box-shadow: 0 3px 20px rgba(90,60,45,.12);
-    position: relative;
-    z-index: 20;
-}
+            100% {
+                transform: translateY(-120px) rotate(360deg);
+            }
+        }
 
-.logo {
-    font-size: 27px;
-    font-weight: bold;
-    color: #815247;
-}
+        /* =========================
+           الهيدر
+        ========================= */
 
-.logo span {
-    color: #b66f78;
-}
+        header {
+            position: relative;
+            z-index: 5;
+            background: rgba(91, 59, 50, 0.95);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
 
-.header-icons {
-    display: flex;
-    gap: 15px;
-}
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
 
-.header-icons button {
-    border: none;
-    background: #f3e2d3;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 19px;
-}
+        header p {
+            color: #f8dfe2;
+        }
 
-/* المحتوى */
-.container {
-    height: calc(100vh - 75px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 22px;
-}
+        /* =========================
+           الحاوية
+        ========================= */
 
-.title {
-    text-align: center;
-    margin-bottom: 15px;
-}
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 95%;
+            max-width: 1000px;
+            margin: 25px auto;
+        }
 
-.title h1 {
-    color: #70493f;
-    font-size: 25px;
-}
+        .box {
+            background: rgba(255,255,255,0.93);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 35px rgba(75,45,35,0.18);
+        }
 
-.title p {
-    color: #856b5e;
-    font-size: 13px;
-    margin-top: 5px;
-}
+        .box h2 {
+            color: #754c42;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-/* منطقة الكروت */
-.card-area {
-    width: min(390px, 90vw);
-    height: 530px;
-    position: relative;
-}
+        /* =========================
+           معلومات الملف الشخصي
+        ========================= */
 
-/* الكارت */
-.profile-card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #fffaf5;
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 15px 45px rgba(74,48,37,.25);
-    user-select: none;
-    touch-action: none;
-    cursor: grab;
-    transition: transform .35s ease, opacity .35s ease;
-}
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-.profile-card:active {
-    cursor: grabbing;
-}
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
 
-.profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .field.full {
+            grid-column: 1 / -1;
+        }
 
-/* طبقة فوق الصورة */
-.profile-overlay {
-    position: absolute;
-    inset: 0;
+        label {
+            font-weight: bold;
+            color: #69443a;
+        }
 
-    background:
-        linear-gradient(
-            transparent 40%,
-            rgba(36,24,20,.05) 50%,
-            rgba(36,24,20,.88) 100%
-        );
-}
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #ead1c4;
+            border-radius: 14px;
+            background: #fffaf7;
+            color: #553932;
+            font-size: 15px;
+            outline: none;
+        }
 
-/* معلومات الشخص */
-.profile-info {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: 25px;
-    color: white;
-}
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #d8899a;
+            box-shadow: 0 0 0 3px rgba(216,137,154,0.12);
+        }
 
-.name {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 7px;
-}
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
 
-.location {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
+        /* =========================
+           العمر
+        ========================= */
 
-.badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-bottom: 10px;
-}
+        .age-box {
+            background: #f9e9e4;
+            border-radius: 14px;
+            padding: 13px;
+            font-weight: bold;
+            color: #754c42;
+        }
 
-.badge {
-    background: rgba(255,255,255,.20);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,.25);
-    padding: 7px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-}
+        /* =========================
+           الصورة
+        ========================= */
 
-.description {
-    font-size: 13px;
-    line-height: 1.7;
-}
+        .photo-area {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-/* زر التفاصيل */
-.details {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,.85);
-    cursor: pointer;
-    font-size: 19px;
-}
+        #photoPreview {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e5a6af;
+            display: block;
+            margin: 10px auto;
+            background: #f4dfd5;
+        }
 
-/* أزرار السوايب */
-.actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    margin-top: 15px;
-}
+        /* =========================
+           الاهتمامات
+        ========================= */
 
-.action {
-    border: none;
-    background: #fffaf5;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 7px 20px rgba(70,45,35,.16);
-    transition: .2s;
-}
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-.action:hover {
-    transform: scale(1.1);
-}
+        .interest {
+            padding: 9px 14px;
+            border-radius: 20px;
+            background: #f3e2d5;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
 
-.skip {
-    width: 57px;
-    height: 57px;
-    font-size: 25px;
-    color: #a45d5d;
-}
+        .interest:hover {
+            transform: translateY(-2px);
+        }
 
-.like {
-    width: 72px;
-    height: 72px;
-    font-size: 34px;
-    background: #c47b83;
-    color: white;
-}
+        .interest.active {
+            background: #e6a0ad;
+            color: white;
+            border-color: #bd7180;
+        }
 
-.info {
-    width: 57px;
-    height: 57px;
-    font-size: 23px;
-    color: #a87562;
-}
+        /* =========================
+           الأزرار
+        ========================= */
 
-/* رسائل السوايب */
-.swipe-label {
-    position: absolute;
-    top: 35px;
-    padding: 10px 18px;
-    border: 3px solid white;
-    border-radius: 12px;
-    font-size: 24px;
-    font-weight: bold;
-    z-index: 5;
-    opacity: 0;
-}
+        .main-btn {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #8a5b4d, #bd7180);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
 
-.like-label {
-    right: 20px;
-    color: #fff;
-    background: rgba(196,123,131,.8);
-}
+        .main-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(120,70,70,0.25);
+        }
 
-.no-label {
-    left: 20px;
-    color: #fff;
-    background: rgba(150,91,86,.8);
-}
+        /* =========================
+           البحث
+        ========================= */
 
-/* شاشة النهاية */
-.no-more {
-    display: none;
-    text-align: center;
-    background: rgba(255,250,245,.92);
-    padding: 35px 25px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(70,45,35,.15);
-}
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-.no-more h2 {
-    color: #795044;
-    margin-bottom: 10px;
-}
+        .search-full {
+            grid-column: 1 / -1;
+        }
 
-.no-more p {
-    color: #80685e;
-    line-height: 1.8;
-}
+        /* =========================
+           كرت التعارف
+        ========================= */
 
-.restart {
-    margin-top: 18px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    background: #b87575;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-}
+        .cards-area {
+            max-width: 450px;
+            margin: 30px auto;
+        }
 
-/* الهاتف */
-@media(max-width:600px) {
+        .profile-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(67,45,38,0.28);
+            position: relative;
+            user-select: none;
+            touch-action: none;
+            transition: transform 0.3s, opacity 0.3s;
+        }
 
-    header {
-        padding: 0 5%;
-    }
+        .profile-card img {
+            width: 100%;
+            height: 430px;
+            object-fit: cover;
+            display: block;
+        }
 
-    .logo {
-        font-size: 23px;
-    }
+        .card-info {
+            padding: 20px;
+        }
 
-    .container {
-        padding-top: 15px;
-    }
+        .card-name {
+            font-size: 25px;
+            font-weight: bold;
+            color: #593b33;
+        }
 
-    .card-area {
-        width: 88vw;
-        height: 62vh;
-        max-height: 500px;
-    }
+        .card-details {
+            margin-top: 8px;
+            color: #80635b;
+            line-height: 1.8;
+        }
 
-    .profile-info {
-        padding: 20px;
-    }
+        .card-bio {
+            margin-top: 12px;
+            line-height: 1.7;
+        }
 
-    .name {
-        font-size: 25px;
-    }
-}
-</style>
+        .card-interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .mini-interest {
+            background: #f2dfd6;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+
+        /* =========================
+           أزرار السحب
+        ========================= */
+
+        .swipe-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .swipe-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            font-size: 28px;
+            transition: 0.2s;
+        }
+
+        .swipe-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .like {
+            width: 75px;
+            height: 75px;
+        }
+
+        /* =========================
+           لا توجد نتائج
+        ========================= */
+
+        .no-results {
+            text-align: center;
+            padding: 35px;
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .no-results div {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+           رسائل
+        ========================= */
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #754c42;
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .profile-grid,
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full,
+            .search-full {
+                grid-column: auto;
+            }
+
+            .box {
+                padding: 18px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .profile-card img {
+                height: 380px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- قلوب -->
-<div class="bg-heart h1">♡</div>
-<div class="bg-heart h2">💗</div>
-<div class="bg-heart h3">💕</div>
-<div class="bg-heart h4">♥</div>
-<div class="bg-heart h5">♡</div>
+    <!-- القلوب -->
+    <div class="heart h1">♥</div>
+    <div class="heart h2">♡</div>
+    <div class="heart h3">♥</div>
+    <div class="heart h4">♡</div>
+    <div class="heart h5">♥</div>
+
+    <!-- الهيدر -->
+    <header>
+        <h1>نصيبي 💍</h1>
+        <p>تعارف جاد ومحترم من أجل المستقبل 🤍</p>
+    </header>
 
 
-<header>
+    <main class="container">
 
-    <div class="logo">
-        نصيبي <span>💍</span>
-    </div>
+        <!-- =========================
+             ملفي الشخصي
+        ========================== -->
 
-    <div class="header-icons">
-        <button onclick="showMessage('🔎 البحث')">🔎</button>
-        <button onclick="showMessage('💬 الرسائل')">💬</button>
-    </div>
+        <section class="box">
 
-</header>
+            <h2>💗 ملفي الشخصي</h2>
 
+            <div class="photo-area">
 
-<div class="container">
+                <img id="photoPreview"
+                     src="https://via.placeholder.com/130x130.png?text=صورتك">
 
-    <div class="title">
+                <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*">
 
-        <h1>💗 اكتشف شريك حياتك</h1>
-
-        <p>
-            اسحب يمينًا للإعجاب أو يسارًا للتخطي
-        </p>
-
-    </div>
+            </div>
 
 
-    <div class="card-area" id="cardArea">
+            <div class="profile-grid">
 
-        <!-- الكارت الأولى -->
+                <!-- الاسم -->
 
-        <div class="profile-card"
-             id="profileCard">
+                <div class="field">
 
-            <img
-                class="profile-image"
-                src="couple.jpg"
-                alt="صورة الملف الشخصي"
-            >
+                    <label>👤 الاسم</label>
 
-            <div class="profile-overlay"></div>
+                    <input
+                        type="text"
+                        id="myName"
+                        placeholder="اكتبي اسمك">
+
+                </div>
+
+
+                <!-- الجنس -->
+
+                <div class="field">
+
+                    <label>⚧ الجنس</label>
+
+                    <select id="myGender">
+
+                        <option value="">اختاري</option>
+
+                        <option value="امرأة">
+                            امرأة
+                        </option>
+
+                        <option value="رجل">
+                            رجل
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- تاريخ الميلاد -->
+
+                <div class="field">
+
+                    <label>🎂 تاريخ الميلاد</label>
+
+                    <input
+                        type="date"
+                        id="myBirthdate">
+
+                </div>
+
+
+                <!-- العمر -->
+
+                <div class="field">
+
+                    <label>🎈 العمر</label>
+
+                    <div class="age-box" id="myAge">
+                        سيتم حساب العمر تلقائياً
+                    </div>
+
+                </div>
+
+
+                <!-- الولاية -->
+
+                <div class="field">
+
+                    <label>📍 الولاية</label>
+
+                    <select id="myWilaya">
+
+                        <option value="">اختاري ولايتك</option>
+
+                        <option>أدرار</option>
+                        <option>الشلف</option>
+                        <option>الأغواط</option>
+                        <option>أم البواقي</option>
+                        <option>باتنة</option>
+                        <option>بجاية</option>
+                        <option>بسكرة</option>
+                        <option>بشار</option>
+                        <option>البليدة</option>
+                        <option>البويرة</option>
+                        <option>تمنراست</option>
+                        <option>تبسة</option>
+                        <option>تلمسان</option>
+                        <option>تيارت</option>
+                        <option>تيزي وزو</option>
+                        <option>الجزائر</option>
+                        <option>الجلفة</option>
+                        <option>جيجل</option>
+                        <option>سطيف</option>
+                        <option>سعيدة</option>
+                        <option>سكيكدة</option>
+                        <option>سيدي بلعباس</option>
+                        <option>عنابة</option>
+                        <option>قالمة</option>
+                        <option>قسنطينة</option>
+                        <option>المدية</option>
+                        <option>مستغانم</option>
+                        <option>المسيلة</option>
+                        <option>معسكر</option>
+                        <option>ورقلة</option>
+                        <option>وهران</option>
+                        <option>البيض</option>
+                        <option>إليزي</option>
+                        <option>برج بوعريريج</option>
+                        <option>بومرداس</option>
+                        <option>الطارف</option>
+                        <option>تندوف</option>
+                        <option>تيسمسيلت</option>
+                        <option>الوادي</option>
+                        <option>خنشلة</option>
+                        <option>سوق أهراس</option>
+                        <option>تيبازة</option>
+                        <option>ميلة</option>
+                        <option>عين الدفلى</option>
+                        <option>النعامة</option>
+                        <option>عين تموشنت</option>
+                        <option>غرداية</option>
+                        <option>غليزان</option>
+                        <option>تيميمون</option>
+                        <option>برج باجي مختار</option>
+                        <option>أولاد جلال</option>
+                        <option>بني عباس</option>
+                        <option>عين صالح</option>
+                        <option>عين قزام</option>
+                        <option>تقرت</option>
+                        <option>جانت</option>
+                        <option>المغير</option>
+                        <option>المنيعة</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- الحالة -->
+
+                <div class="field">
+
+                    <label>💍 الحالة</label>
+
+                    <select id="myStatus">
+
+                        <option value="">
+                            اختاري
+                        </option>
+
+                        <option>
+                            أعزب / عزباء
+                        </option>
+
+                        <option>
+                            مطلق / مطلقة
+                        </option>
+
+                        <option>
+                            أرمل / أرملة
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- الدراسة / العمل -->
+
+                <div class="field">
+
+                    <label>💼 الدراسة أو العمل</label>
+
+                    <input
+                        type="text"
+                        id="myJob"
+                        placeholder="مثلاً: طالبة / ممرضة / مهندس...">
+
+                </div>
+
+
+                <!-- نبذة -->
+
+                <div class="field full">
+
+                    <label>💌 نبذة عني</label>
+
+                    <textarea
+                        id="myBio"
+                        placeholder="اكتبي قليلاً عن شخصيتك وما تبحثين عنه..."></textarea>
+
+                </div>
+
+
+                <!-- الاهتمامات -->
+
+                <div class="field full">
+
+                    <label>💕 اهتماماتي</label>
+
+                    <div class="interests">
+
+                        <span class="interest">📚 الكتب</span>
+                        <span class="interest">🎬 الأفلام</span>
+                        <span class="interest">📺 المسلسلات</span>
+                        <span class="interest">🎌 الأنمي</span>
+                        <span class="interest">💻 البرمجة</span>
+                        <span class="interest">🐱 القطط</span>
+                        <span class="interest">🌊 البحر</span>
+                        <span class="interest">✈️ السفر</span>
+                        <span class="interest">🎵 الموسيقى</span>
+                        <span class="interest">🍳 الطبخ</span>
+                        <span class="interest">📷 التصوير</span>
+                        <span class="interest">🎨 الرسم</span>
+                        <span class="interest">🏃 الرياضة</span>
+                        <span class="interest">🌱 الطبيعة</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
 
             <button
-                class="details"
-                onclick="showDetails()"
-            >
-                ⓘ
+                class="main-btn"
+                onclick="saveProfile()">
+
+                💾 حفظ معلوماتي
+
             </button>
 
-            <div
-                class="swipe-label like-label"
-                id="likeLabel"
-            >
-                ❤️ إعجاب
+            <div id="message"></div>
+
+        </section>
+
+
+        <!-- =========================
+             البحث
+        ========================== -->
+
+        <section class="box">
+
+            <h2>🔎 ابحثي عن شريك حياتك 💍</h2>
+
+            <div class="search-grid">
+
+                <!-- البحث بالاسم -->
+
+                <div class="field search-full">
+
+                    <label>🔍 البحث بالاسم</label>
+
+                    <input
+                        type="text"
+                        id="searchName"
+                        placeholder="اكتبي اسم الشخص...">
+
+                </div>
+
+
+                <!-- الجنس -->
+
+                <div class="field">
+
+                    <label>👤 أبحث عن</label>
+
+                    <select id="searchGender">
+
+                        <option value="">
+                            الكل
+                        </option>
+
+                        <option value="رجل">
+                            رجل
+                        </option>
+
+                        <option value="امرأة">
+                            امرأة
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- الولاية -->
+
+                <div class="field">
+
+                    <label>📍 الولاية</label>
+
+                    <select id="searchWilaya">
+
+                        <option value="">
+                            كل الولايات
+                        </option>
+
+                        <option>أدرار</option>
+                        <option>الشلف</option>
+                        <option>الأغواط</option>
+                        <option>أم البواقي</option>
+                        <option>باتنة</option>
+                        <option>بجاية</option>
+                        <option>بسكرة</option>
+                        <option>بشار</option>
+                        <option>البليدة</option>
+                        <option>البويرة</option>
+                        <option>تمنراست</option>
+                        <option>تبسة</option>
+                        <option>تلمسان</option>
+                        <option>تيارت</option>
+                        <option>تيزي وزو</option>
+                        <option>الجزائر</option>
+                        <option>الجلفة</option>
+                        <option>جيجل</option>
+                        <option>سطيف</option>
+                        <option>سعيدة</option>
+                        <option>سكيكدة</option>
+                        <option>سيدي بلعباس</option>
+                        <option>عنابة</option>
+                        <option>قالمة</option>
+                        <option>قسنطينة</option>
+                        <option>المدية</option>
+                        <option>مستغانم</option>
+                        <option>المسيلة</option>
+                        <option>معسكر</option>
+                        <option>ورقلة</option>
+                        <option>وهران</option>
+                        <option>البيض</option>
+                        <option>إليزي</option>
+                        <option>برج بوعريريج</option>
+                        <option>بومرداس</option>
+                        <option>الطارف</option>
+                        <option>تندوف</option>
+                        <option>تيسمسيلت</option>
+                        <option>الوادي</option>
+                        <option>خنشلة</option>
+                        <option>سوق أهراس</option>
+                        <option>تيبازة</option>
+                        <option>ميلة</option>
+                        <option>عين الدفلى</option>
+                        <option>النعامة</option>
+                        <option>عين تموشنت</option>
+                        <option>غرداية</option>
+                        <option>غليزان</option>
+                        <option>تيميمون</option>
+                        <option>برج باجي مختار</option>
+                        <option>أولاد جلال</option>
+                        <option>بني عباس</option>
+                        <option>عين صالح</option>
+                        <option>عين قزام</option>
+                        <option>تقرت</option>
+                        <option>جانت</option>
+                        <option>المغير</option>
+                        <option>المنيعة</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- العمر الأدنى -->
+
+                <div class="field">
+
+                    <label>🎂 من عمر</label>
+
+                    <input
+                        type="number"
+                        id="minAge"
+                        min="18"
+                        placeholder="18">
+
+                </div>
+
+
+                <!-- العمر الأقصى -->
+
+                <div class="field">
+
+                    <label>🎂 إلى عمر</label>
+
+                    <input
+                        type="number"
+                        id="maxAge"
+                        min="18"
+                        placeholder="40">
+
+                </div>
+
             </div>
 
-            <div
-                class="swipe-label no-label"
-                id="noLabel"
-            >
-                ✖ تخطي
-            </div>
+
+            <button
+                class="main-btn"
+                onclick="searchProfiles()">
+
+                🔎 بحث
+
+            </button>
+
+        </section>
 
 
-            <div class="profile-info">
+        <!-- =========================
+             نتائج البحث
+        ========================== -->
 
-                <div class="name">
-                    سارة، 24
-                </div>
+        <section>
 
-                <div class="location">
-                    📍 باتنة، الجزائر
-                </div>
+            <div class="cards-area" id="cardsArea"></div>
 
+        </section>
 
-                <div class="badges">
-
-                    <span class="badge">
-                        💍 زواج جاد
-                    </span>
-
-                    <span class="badge">
-                        🎓 جامعية
-                    </span>
-
-                    <span class="badge">
-                        💗 حنونة
-                    </span>
-
-                </div>
-
-
-                <div class="description">
-
-                    أحب الهدوء والعائلة والكتب،
-                    وأبحث عن شخص محترم وصادق
-                    تكون نيته واضحة للزواج.
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- أزرار -->
-
-    <div class="actions">
-
-        <button
-            class="action skip"
-            onclick="swipeLeft()"
-        >
-            ✖
-        </button>
-
-
-        <button
-            class="action like"
-            onclick="swipeRight()"
-        >
-            ❤️
-        </button>
-
-
-        <button
-            class="action info"
-            onclick="showDetails()"
-        >
-            ⭐
-        </button>
-
-    </div>
-
-
-    <!-- النهاية -->
-
-    <div
-        class="no-more"
-        id="noMore"
-    >
-
-        <h2>
-            💗 خلصت الملفات
-        </h2>
-
-        <p>
-            ما بقاش عندنا ملفات جديدة حاليًا.
-            ارجعي لاحقًا باش تكتشفي أشخاص جدد.
-        </p>
-
-        <button
-            class="restart"
-            onclick="restart()"
-        >
-            🔄 إعادة البحث
-        </button>
-
-    </div>
-
-</div>
+    </main>
 
 
 <script>
 
-/* =========================
-   بيانات تجريبية
-========================= */
+    /* ==========================================
+       بيانات تجريبية
+       لاحقاً نربطها مع Firebase
+    ========================================== */
 
-const profiles = [
+    let profiles = [
 
-    {
-        name: "سارة",
-        age: 24,
-        location: "باتنة",
-        image: "couple.jpg",
-        description:
-        "أحب الهدوء والعائلة والكتب، وأبحث عن شخص محترم وصادق تكون نيته واضحة للزواج."
-    },
+        {
+            name: "سارة",
+            age: 23,
+            birthdate: "2003-05-12",
+            gender: "امرأة",
+            wilaya: "باتنة",
+            job: "طالبة",
+            bio: "شخصية هادئة وأحب التعارف الجاد والاحترام.",
+            interests: ["📚 الكتب", "🎬 الأفلام", "🐱 القطط"],
+            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800"
+        },
 
-    {
-        name: "ليان",
-        age: 26,
-        location: "قسنطينة",
-        image: "couple.jpg",
-        description:
-        "شخصية هادئة وطموحة، أحب السفر والتعلم وأبحث عن علاقة جادة مبنية على الاحترام."
-    },
+        {
+            name: "محمد",
+            age: 27,
+            birthdate: "1999-02-18",
+            gender: "رجل",
+            wilaya: "قسنطينة",
+            job: "مهندس",
+            bio: "أحب الهدوء والسفر وأبحث عن علاقة مبنية على الاحترام.",
+            interests: ["✈️ السفر", "💻 البرمجة", "🎵 الموسيقى"],
+            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800"
+        },
 
-    {
-        name: "ياسمين",
-        age: 23,
-        location: "سطيف",
-        image: "couple.jpg",
-        description:
-        "أحب العائلة والحياة البسيطة وأبحث عن شريك متفهم وصادق."
-    }
+        {
+            name: "ريم",
+            age: 25,
+            birthdate: "2001-09-20",
+            gender: "امرأة",
+            wilaya: "سطيف",
+            job: "ممرضة",
+            bio: "أحب العائلة والطبخ والبحر وأبحث عن شخص جاد.",
+            interests: ["🍳 الطبخ", "🌊 البحر", "🌱 الطبيعة"],
+            image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800"
+        },
 
-];
+        {
+            name: "ياسين",
+            age: 29,
+            birthdate: "1997-01-10",
+            gender: "رجل",
+            wilaya: "الجزائر",
+            job: "مبرمج",
+            bio: "أحب البرمجة والأنمي والقراءة وأهتم بالحياة العائلية.",
+            interests: ["💻 البرمجة", "🎌 الأنمي", "📚 الكتب"],
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"
+        }
 
-let current = 0;
-
-let card =
-document.getElementById("profileCard");
-
-let startX = 0;
-let currentX = 0;
-let dragging = false;
-
-
-/* =========================
-   السحب بالماوس
-========================= */
-
-card.addEventListener(
-    "pointerdown",
-    startDrag
-);
-
-function startDrag(e) {
-
-    dragging = true;
-
-    startX = e.clientX;
-
-    card.setPointerCapture(e.pointerId);
-}
+    ];
 
 
-card.addEventListener(
-    "pointermove",
-    drag
-);
+    let filteredProfiles = [...profiles];
 
-function drag(e) {
-
-    if (!dragging) return;
-
-    currentX =
-        e.clientX - startX;
-
-    card.style.transform =
-        `translateX(${currentX}px)
-         rotate(${currentX / 15}deg)`;
+    let currentIndex = 0;
 
 
-    if (currentX > 30) {
+    /* ==========================================
+       حساب العمر تلقائياً من تاريخ الميلاد
+    ========================================== */
 
-        document.getElementById(
-            "likeLabel"
-        ).style.opacity =
-        Math.min(currentX / 100, 1);
-
-    } else {
-
-        document.getElementById(
-            "likeLabel"
-        ).style.opacity = 0;
-
-    }
+    document
+        .getElementById("myBirthdate")
+        .addEventListener("change", calculateMyAge);
 
 
-    if (currentX < -30) {
+    function calculateMyAge() {
 
-        document.getElementById(
-            "noLabel"
-        ).style.opacity =
-        Math.min(Math.abs(currentX) / 100, 1);
+        const birthdate =
+            document.getElementById("myBirthdate").value;
 
-    } else {
+        if (!birthdate) {
 
-        document.getElementById(
-            "noLabel"
-        ).style.opacity = 0;
+            document.getElementById("myAge").textContent =
+                "سيتم حساب العمر تلقائياً";
 
-    }
-}
+            return;
+        }
 
 
-card.addEventListener(
-    "pointerup",
-    endDrag
-);
+        const birth = new Date(birthdate);
 
-function endDrag() {
+        const today = new Date();
 
-    if (!dragging) return;
+        let age =
+            today.getFullYear() - birth.getFullYear();
 
-    dragging = false;
 
-    if (currentX > 120) {
+        const month =
+            today.getMonth() - birth.getMonth();
 
-        swipeRight();
+
+        if (
+            month < 0 ||
+            (month === 0 &&
+             today.getDate() < birth.getDate())
+        ) {
+
+            age--;
+
+        }
+
+
+        document.getElementById("myAge").textContent =
+            age + " سنة";
 
     }
 
-    else if (currentX < -120) {
 
-        swipeLeft();
+    /* ==========================================
+       اختيار الاهتمامات
+    ========================================== */
+
+    document.querySelectorAll(".interest").forEach(item => {
+
+        item.addEventListener("click", () => {
+
+            item.classList.toggle("active");
+
+        });
+
+    });
+
+
+    /* ==========================================
+       صورة المستخدم
+    ========================================== */
+
+    document
+        .getElementById("photoInput")
+        .addEventListener("change", function() {
+
+            const file = this.files[0];
+
+            if (!file) return;
+
+
+            const reader = new FileReader();
+
+
+            reader.onload = function(e) {
+
+                document
+                    .getElementById("photoPreview")
+                    .src = e.target.result;
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        });
+
+
+    /* ==========================================
+       حفظ معلومات المستخدم
+    ========================================== */
+
+    function saveProfile() {
+
+        const name =
+            document.getElementById("myName").value.trim();
+
+
+        const birthdate =
+            document.getElementById("myBirthdate").value;
+
+
+        const gender =
+            document.getElementById("myGender").value;
+
+
+        const wilaya =
+            document.getElementById("myWilaya").value;
+
+
+        if (!name || !birthdate || !gender || !wilaya) {
+
+            document.getElementById("message").textContent =
+                "⚠️ لازم تعمري الاسم وتاريخ الميلاد والجنس والولاية.";
+
+            return;
+
+        }
+
+
+        const selectedInterests = [];
+
+
+        document
+            .querySelectorAll(".interest.active")
+            .forEach(item => {
+
+                selectedInterests.push(
+                    item.textContent
+                );
+
+            });
+
+
+        const userProfile = {
+
+            name: name,
+
+            birthdate: birthdate,
+
+            gender: gender,
+
+            wilaya: wilaya,
+
+            age: calculateAgeFromDate(birthdate),
+
+            status:
+                document.getElementById("myStatus").value,
+
+            job:
+                document.getElementById("myJob").value,
+
+            bio:
+                document.getElementById("myBio").value,
+
+            interests:
+                selectedInterests,
+
+            image:
+                document.getElementById("photoPreview").src
+
+        };
+
+
+        localStorage.setItem(
+            "nasibiProfile",
+            JSON.stringify(userProfile)
+        );
+
+
+        document.getElementById("message").textContent =
+            "✅ تم حفظ معلوماتك بنجاح 💗";
 
     }
 
-    else {
+
+    /* ==========================================
+       حساب العمر
+    ========================================== */
+
+    function calculateAgeFromDate(dateString) {
+
+        const birth = new Date(dateString);
+
+        const today = new Date();
+
+        let age =
+            today.getFullYear() -
+            birth.getFullYear();
+
+
+        const month =
+            today.getMonth() -
+            birth.getMonth();
+
+
+        if (
+            month < 0 ||
+            (month === 0 &&
+             today.getDate() < birth.getDate())
+        ) {
+
+            age--;
+
+        }
+
+
+        return age;
+
+    }
+
+
+    /* ==========================================
+       تحميل معلومات المستخدم إذا كانت محفوظة
+    ========================================== */
+
+    function loadProfile() {
+
+        const saved =
+            localStorage.getItem("nasibiProfile");
+
+
+        if (!saved) return;
+
+
+        const profile =
+            JSON.parse(saved);
+
+
+        document.getElementById("myName").value =
+            profile.name || "";
+
+
+        document.getElementById("myBirthdate").value =
+            profile.birthdate || "";
+
+
+        document.getElementById("myGender").value =
+            profile.gender || "";
+
+
+        document.getElementById("myWilaya").value =
+            profile.wilaya || "";
+
+
+        document.getElementById("myStatus").value =
+            profile.status || "";
+
+
+        document.getElementById("myJob").value =
+            profile.job || "";
+
+
+        document.getElementById("myBio").value =
+            profile.bio || "";
+
+
+        if (profile.image) {
+
+            document.getElementById("photoPreview").src =
+                profile.image;
+
+        }
+
+
+        calculateMyAge();
+
+
+        document.querySelectorAll(".interest")
+            .forEach(item => {
+
+                if (
+                    profile.interests &&
+                    profile.interests.includes(item.textContent)
+                ) {
+
+                    item.classList.add("active");
+
+                }
+
+            });
+
+    }
+
+
+    /* ==========================================
+       البحث
+    ========================================== */
+
+    function searchProfiles() {
+
+        const name =
+            document
+                .getElementById("searchName")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const gender =
+            document.getElementById("searchGender").value;
+
+
+        const wilaya =
+            document.getElementById("searchWilaya").value;
+
+
+        const minAge =
+            parseInt(
+                document.getElementById("minAge").value
+            ) || 0;
+
+
+        const maxAge =
+            parseInt(
+                document.getElementById("maxAge").value
+            ) || 999;
+
+
+        filteredProfiles =
+            profiles.filter(profile => {
+
+
+                const nameMatch =
+                    !name ||
+                    profile.name
+                        .toLowerCase()
+                        .includes(name);
+
+
+                const genderMatch =
+                    !gender ||
+                    profile.gender === gender;
+
+
+                const wilayaMatch =
+                    !wilaya ||
+                    profile.wilaya === wilaya;
+
+
+                const ageMatch =
+                    profile.age >= minAge &&
+                    profile.age <= maxAge;
+
+
+                return (
+                    nameMatch &&
+                    genderMatch &&
+                    wilayaMatch &&
+                    ageMatch
+                );
+
+            });
+
+
+        currentIndex = 0;
+
+        showCurrentProfile();
+
+    }
+
+
+    /* ==========================================
+       عرض الكرت
+    ========================================== */
+
+    function showCurrentProfile() {
+
+        const area =
+            document.getElementById("cardsArea");
+
+
+        if (
+            currentIndex >=
+            filteredProfiles.length
+        ) {
+
+            area.innerHTML = `
+
+                <div class="no-results">
+
+                    <div>💔</div>
+
+                    <h2>
+                        ما بقاش أشخاص هنا
+                    </h2>
+
+                    <p>
+                        جربي تغيّري شروط البحث
+                        باش تلقاي أشخاص أكثر.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const profile =
+            filteredProfiles[currentIndex];
+
+
+        area.innerHTML = `
+
+            <div
+                class="profile-card"
+                id="profileCard"
+            >
+
+                <img
+                    src="${profile.image}"
+                    alt="صورة ${profile.name}"
+                >
+
+
+                <div class="card-info">
+
+                    <div class="card-name">
+
+                        ${profile.name},
+                        ${profile.age}
+
+                    </div>
+
+
+                    <div class="card-details">
+
+                        📍 ${profile.wilaya}
+                        <br>
+
+                        💼 ${profile.job}
+
+                    </div>
+
+
+                    <div class="card-bio">
+
+                        ${profile.bio}
+
+                    </div>
+
+
+                    <div class="card-interests">
+
+                        ${profile.interests
+                            .map(i =>
+                                `<span class="mini-interest">
+                                    ${i}
+                                </span>`
+                            )
+                            .join("")
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="swipe-buttons">
+
+                <button
+                    class="swipe-btn"
+                    onclick="swipeLeft()">
+
+                    ✖
+
+                </button>
+
+
+                <button
+                    class="swipe-btn like"
+                    onclick="swipeRight()">
+
+                    ❤️
+
+                </button>
+
+
+                <button
+                    class="swipe-btn"
+                    onclick="showDetails()">
+
+                    ⭐
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        enableSwipe();
+
+    }
+
+
+    /* ==========================================
+       إعجاب
+    ========================================== */
+
+    function swipeRight() {
+
+        const card =
+            document.getElementById("profileCard");
+
+
+        if (!card) return;
+
 
         card.style.transform =
-            "translateX(0) rotate(0)";
+            "translateX(-500px) rotate(-25deg)";
 
-        document.getElementById(
-            "likeLabel"
-        ).style.opacity = 0;
-
-        document.getElementById(
-            "noLabel"
-        ).style.opacity = 0;
-    }
-
-}
+        card.style.opacity = "0";
 
 
-/* =========================
-   إعجاب
-========================= */
+        setTimeout(() => {
 
-function swipeRight() {
+            currentIndex++;
 
-    card.style.transform =
-        "translateX(500px) rotate(25deg)";
+            showCurrentProfile();
 
-    card.style.opacity = 0;
+        }, 300);
 
-    setTimeout(() => {
-
-        nextProfile();
-
-    }, 350);
-}
-
-
-/* =========================
-   تخطي
-========================= */
-
-function swipeLeft() {
-
-    card.style.transform =
-        "translateX(-500px) rotate(-25deg)";
-
-    card.style.opacity = 0;
-
-    setTimeout(() => {
-
-        nextProfile();
-
-    }, 350);
-}
-
-
-/* =========================
-   الملف التالي
-========================= */
-
-function nextProfile() {
-
-    current++;
-
-    if (current >= profiles.length) {
-
-        document.getElementById(
-            "cardArea"
-        ).style.display = "none";
-
-        document.querySelector(
-            ".actions"
-        ).style.display = "none";
-
-        document.getElementById(
-            "noMore"
-        ).style.display = "block";
-
-        return;
     }
 
 
-    const profile =
-        profiles[current];
+    /* ==========================================
+       رفض / التالي
+    ========================================== */
+
+    function swipeLeft() {
+
+        const card =
+            document.getElementById("profileCard");
 
 
-    card.innerHTML = `
-
-        <img
-            class="profile-image"
-            src="${profile.image}"
-            alt="صورة الملف الشخصي"
-        >
-
-        <div class="profile-overlay"></div>
-
-        <button
-            class="details"
-            onclick="showDetails()"
-        >
-            ⓘ
-        </button>
-
-        <div
-            class="swipe-label like-label"
-            id="likeLabel"
-        >
-            ❤️ إعجاب
-        </div>
-
-        <div
-            class="swipe-label no-label"
-            id="noLabel"
-        >
-            ✖ تخطي
-        </div>
-
-        <div class="profile-info">
-
-            <div class="name">
-                ${profile.name}, ${profile.age}
-            </div>
-
-            <div class="location">
-                📍 ${profile.location}, الجزائر
-            </div>
-
-            <div class="badges">
-
-                <span class="badge">
-                    💍 زواج جاد
-                </span>
-
-                <span class="badge">
-                    💗 متفهمة
-                </span>
-
-                <span class="badge">
-                    ⭐ مناسبة لك
-                </span>
-
-            </div>
-
-            <div class="description">
-                ${profile.description}
-            </div>
-
-        </div>
-    `;
+        if (!card) return;
 
 
-    card.style.transition = "none";
+        card.style.transform =
+            "translateX(500px) rotate(25deg)";
 
-    card.style.transform =
-        "translateX(0) rotate(0)";
-
-    card.style.opacity = 1;
-
-    setTimeout(() => {
-
-        card.style.transition =
-            "transform .35s ease, opacity .35s ease";
-
-    }, 50);
-
-    /* إعادة ربط أحداث السحب */
-
-    card.addEventListener(
-        "pointerdown",
-        startDrag
-    );
-
-}
+        card.style.opacity = "0";
 
 
-/* =========================
-   التفاصيل
-========================= */
+        setTimeout(() => {
 
-function showDetails() {
+            currentIndex++;
 
-    const profile =
-        profiles[current];
+            showCurrentProfile();
 
-    alert(
-        "👤 " +
-        profile.name +
-        "\n\n" +
+        }, 300);
 
-        "🎂 العمر: " +
-        profile.age +
-        "\n" +
-
-        "📍 الولاية: " +
-        profile.location +
-        "\n\n" +
-
-        "💍 الهدف: زواج جاد" +
-        "\n\n" +
-
-        "💗 " +
-        profile.description
-    );
-
-}
+    }
 
 
-/* =========================
-   إعادة البحث
-========================= */
+    /* ==========================================
+       التفاصيل
+    ========================================== */
 
-function restart() {
+    function showDetails() {
 
-    current = 0;
-
-    document.getElementById(
-        "cardArea"
-    ).style.display = "block";
-
-    document.querySelector(
-        ".actions"
-    ).style.display = "flex";
-
-    document.getElementById(
-        "noMore"
-    ).style.display = "none";
-
-    location.reload();
-
-}
+        const profile =
+            filteredProfiles[currentIndex];
 
 
-/* =========================
-   رسائل
-========================= */
+        if (!profile) return;
 
-function showMessage(message) {
 
-    alert(message);
+        alert(
 
-}
+            "💗 معلومات " +
+            profile.name +
+            "\n\n" +
+
+            "العمر: " +
+            profile.age +
+            "\n" +
+
+            "الولاية: " +
+            profile.wilaya +
+            "\n" +
+
+            "الدراسة/العمل: " +
+            profile.job +
+            "\n\n" +
+
+            "الاهتمامات:\n" +
+            profile.interests.join(" ، ")
+
+        );
+
+    }
+
+
+    /* ==========================================
+       السحب بالماوس أو الإصبع
+    ========================================== */
+
+    function enableSwipe() {
+
+        const card =
+            document.getElementById("profileCard");
+
+
+        if (!card) return;
+
+
+        let startX = 0;
+
+        let currentX = 0;
+
+        let dragging = false;
+
+
+        card.addEventListener("pointerdown", e => {
+
+            dragging = true;
+
+            startX = e.clientX;
+
+            card.setPointerCapture(e.pointerId);
+
+        });
+
+
+        card.addEventListener("pointermove", e => {
+
+            if (!dragging) return;
+
+
+            currentX =
+                e.clientX - startX;
+
+
+            card.style.transform =
+                `translateX(${currentX}px)
+                 rotate(${currentX / 15}deg)`;
+
+        });
+
+
+        card.addEventListener("pointerup", () => {
+
+            if (!dragging) return;
+
+
+            dragging = false;
+
+
+            if (currentX > 120) {
+
+                swipeLeft();
+
+            }
+
+            else if (currentX < -120) {
+
+                swipeRight();
+
+            }
+
+            else {
+
+                card.style.transform =
+                    "translateX(0) rotate(0)";
+
+            }
+
+
+            currentX = 0;
+
+        });
+
+    }
+
+
+    /* ==========================================
+       تشغيل الصفحة
+    ========================================== */
+
+    loadProfile();
+
+    showCurrentProfile();
 
 </script>
 
